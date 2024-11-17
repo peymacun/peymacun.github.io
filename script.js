@@ -389,19 +389,14 @@ function updateUIForLanguage(language) {
     forecastHeader.textContent = translations[language].forecastHeader;
 }
 
-// Handle city input change
-cityInputElement.addEventListener('input', (event) => {
-    const city = event.target.value.trim();
-    if (city && !currentWeatherData) {
-        getWeather(); // Fetch weather data only if no city has been fetched yet
-    }
+// Handle button click for weather fetch
+getWeatherButton.addEventListener('click', () => {
+    getWeather(); // Trigger the weather fetch only when the button is clicked
 });
 
-// For the first page load, fetch weather data if a city is already entered in the input field
-window.onload = function() {
-    const savedCity = localStorage.getItem("city");
-    if (savedCity) {
-        cityInputElement.value = savedCity;
-        getWeather(); // Fetch weather on page load if a city is saved
+// Handle pressing the "Enter" key in the input field to fetch weather
+cityInputElement.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        getWeather();  // Trigger weather fetch when "Enter" is pressed
     }
-};
+});
