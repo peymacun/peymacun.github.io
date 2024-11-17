@@ -11,7 +11,7 @@ const forecastHeader = document.getElementById('forecast-header');
 // Full translations for all languages
 const translations = {
     "en": {
-        "appTitle": "Only Weather",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Get Weather",
         "darkModeBtn": "Dark Mode",
         "currentWeatherTitle": "Current Weather in",
@@ -30,7 +30,7 @@ const translations = {
         "mist": "Mist"
     },
     "ru": {
-        "appTitle": "Только Погода",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Получить Погоду",
         "darkModeBtn": "Тёмный Режим",
         "currentWeatherTitle": "Текущая Погода в",
@@ -49,7 +49,7 @@ const translations = {
         "mist": "Туман"
     },
     "es": {
-        "appTitle": "Solo Clima",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Obtener Clima",
         "darkModeBtn": "Modo Oscuro",
         "currentWeatherTitle": "Clima Actual en",
@@ -68,7 +68,7 @@ const translations = {
         "mist": "Niebla"
     },
     "fr": {
-        "appTitle": "Météo Seulement",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Obtenir Météo",
         "darkModeBtn": "Mode Sombre",
         "currentWeatherTitle": "Météo Actuelle à",
@@ -87,7 +87,7 @@ const translations = {
         "mist": "Brouillard"
     },
     "de": {
-        "appTitle": "Nur Wetter",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Wetter Abrufen",
         "darkModeBtn": "Dunkler Modus",
         "currentWeatherTitle": "Aktuelles Wetter in",
@@ -106,7 +106,7 @@ const translations = {
         "mist": "Nebel"
     },
     "it": {
-        "appTitle": "Solo Meteo",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Ottieni Meteo",
         "darkModeBtn": "Modalità Scura",
         "currentWeatherTitle": "Meteo Attuale a",
@@ -125,7 +125,7 @@ const translations = {
         "mist": "Nebbia"
     },
     "pt": {
-        "appTitle": "Somente Tempo",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Obter Tempo",
         "darkModeBtn": "Modo Escuro",
         "currentWeatherTitle": "Clima Atual em",
@@ -144,7 +144,7 @@ const translations = {
         "mist": "Névoa"
     },
     "pl": {
-        "appTitle": "Tylko Pogoda",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Pobierz Pogodę",
         "darkModeBtn": "Tryb Ciemny",
         "currentWeatherTitle": "Aktualna Pogoda w",
@@ -163,7 +163,7 @@ const translations = {
         "mist": "Mgła"
     },
     "nl": {
-        "appTitle": "Helder Lucht",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Krijg Weer",
         "darkModeBtn": "Donkere Modus",
         "currentWeatherTitle": "Huidig Weer in",
@@ -182,7 +182,7 @@ const translations = {
         "mist": "Mist"
     },
     "zh": {
-        "appTitle": "只有天气",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "获取天气",
         "darkModeBtn": "暗模式",
         "currentWeatherTitle": "当前天气在",
@@ -201,7 +201,7 @@ const translations = {
         "mist": "雾"
     },
     "ja": {
-        "appTitle": "天気だけ",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "天気を取得",
         "darkModeBtn": "ダークモード",
         "currentWeatherTitle": "現在の天気",
@@ -220,7 +220,7 @@ const translations = {
         "mist": "霧"
     },
     "ko": {
-        "appTitle": "날씨만",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "날씨 가져오기",
         "darkModeBtn": "어두운 모드",
         "currentWeatherTitle": "현재 날씨",
@@ -239,7 +239,7 @@ const translations = {
         "mist": "안개"
     },
     "ar": {
-        "appTitle": "فقط الطقس",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "الحصول على الطقس",
         "darkModeBtn": "الوضع المظلم",
         "currentWeatherTitle": "الطقس الحالي في",
@@ -258,7 +258,7 @@ const translations = {
         "mist": "ضباب"
     },
     "tr": {
-        "appTitle": "Sadece Hava Durumu",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "Hava Durumunu Al",
         "darkModeBtn": "Karanlık Mod",
         "currentWeatherTitle": "Şu Anki Hava Durumu",
@@ -277,7 +277,7 @@ const translations = {
         "mist": "Sis"
     },
     "hi": {
-        "appTitle": "सिर्फ मौसम",
+        "appTitle": "OnlyWeathers",
         "getWeatherBtn": "मौसम प्राप्त करें",
         "darkModeBtn": "अंधेरे मोड",
         "currentWeatherTitle": "वर्तमान मौसम",
