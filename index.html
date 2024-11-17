@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Language Toggle on the top-left -->
+        <div id="language-toggle">
+            <select id="language">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+                <option value="ru">Русский</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="ar">العربية</option>
+                <option value="tr">Türkçe</option>
+                <option value="hi">हिन्दी</option>
+                <option value="pt">Português</option>
+                <option value="pl">Polski</option>
+                <option value="nl">Nederlands</option>
+            </select>
+        </div>
+
+        <h1 id="app-title">Only Weather</h1>
+        
+        <!-- Weather Inputs -->
+        <div>
+            <input type="text" id="city-input" placeholder="Enter your city" />
+            <button onclick="getWeather()" id="get-weather-btn">Get Weather</button>
+            <button onclick="toggleDarkMode()" id="dark-mode-btn">Dark Mode</button>
+        </div>
+        
+        <div id="current-weather"></div>
+
+        <!-- Forecast Header -->
+        <div id="forecast-header">5-Day Forecast</div>
+        
+        <div id="forecast"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
