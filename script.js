@@ -389,6 +389,9 @@ function updateUIForLanguage(language) {
     forecastHeader.textContent = translations[language].forecastHeader;
 }
 
+// ** REMOVE input event listeners **
+// No automatic search on typing anymore!
+
 // Handle button click for weather fetch
 getWeatherButton.addEventListener('click', () => {
     getWeather(); // Trigger the weather fetch only when the button is clicked
