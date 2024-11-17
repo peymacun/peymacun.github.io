@@ -10,7 +10,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    position: relative;  /* Ensure positioning works for the dark mode button */
+    position: relative;  
 }
 
 #language-toggle {
@@ -23,8 +23,8 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    padding: 5px 10px;  /* Smaller padding */
-    font-size: 14px;  /* Smaller font size */
+    padding: 5px 10px;  
+    font-size: 14px;  
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -55,9 +55,9 @@ button:hover {
 
 #forecast {
     display: flex;
-    justify-content: center;  /* Align the forecast items horizontally */
-    gap: 15px;  /* Space between the forecast items */
-    flex-wrap: wrap;  /* Allow wrapping on smaller screens */
+    justify-content: center;  
+    gap: 15px;  
+    flex-wrap: wrap;  
     margin-top: 20px;
 }
 
@@ -68,8 +68,8 @@ button:hover {
     border-radius: 5px;
     width: 150px;
     text-align: center;
-    box-sizing: border-box;  /* Ensure padding doesn't affect width */
-    font-size: 14px;  /* Adjust font size for clarity */
+    box-sizing: border-box;  
+    font-size: 14px;  
 }
 
 .forecast-item p {
@@ -90,32 +90,28 @@ button:hover {
     text-align: center;
 }
 
-/* Make the app title centered and spaced out a bit */
 h1 {
     margin-bottom: 20px;
 }
 
-/* Center the weather info */
 #current-weather, #forecast {
     margin-top: 20px;
 }
 
-/* Center the 5-Day Forecast title */
 #forecast-header {
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     .forecast-item {
-        width: 120px; /* Adjust the width for smaller screens */
+        width: 120px; 
     }
 }
 
 @media (max-width: 480px) {
     .forecast-item {
-        width: 100%; /* Stack forecast items on very small screens */
+        width: 100%; 
     }
 }
