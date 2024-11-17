@@ -8,7 +8,6 @@ const getWeatherButton = document.getElementById('get-weather-btn');
 const darkModeButton = document.getElementById('dark-mode-btn');
 const forecastHeader = document.getElementById('forecast-header'); 
 
-// Full translations for all languages
 const translations = {
     "en": {
         "appTitle": "OnlyWeathers",
