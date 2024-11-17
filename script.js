@@ -389,9 +389,6 @@ function updateUIForLanguage(language) {
     forecastHeader.textContent = translations[language].forecastHeader;
 }
 
-// Handle city input change (REMOVE THIS TO STOP FETCHING ON INPUT CHANGE)
-cityInputElement.removeEventListener('input', searchOnInputChange);
-
 // Handle button click for weather fetch
 getWeatherButton.addEventListener('click', () => {
     getWeather(); // Trigger the weather fetch only when the button is clicked
