@@ -297,9 +297,8 @@ const translations = {
     }
 };
 
-let currentWeatherData = null;  // Store fetched weather data globally
+let currentWeatherData = null;
 
-// Function to fetch and display the weather based on the city input
 async function getWeather() {
     const cityInput = cityInputElement.value.trim();
     if (!cityInput) {
@@ -321,18 +320,17 @@ async function getWeather() {
             throw new Error('Location not found or API error');
         }
 
-        currentWeatherData = await currentResponse.json();  // Store the current weather data
+        currentWeatherData = await currentResponse.json();
         const forecast = await forecastResponse.json();
 
         displayCurrentWeather(currentWeatherData, language);
         displayForecast(forecast, language);
     } catch (error) {
-        console.error(error);  // Log any errors to the console
+        console.error(error);
         alert('Could not fetch weather data. Please try again.');
     }
 }
 
-// Function to display the current weather (using data fetched)
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
 
@@ -345,7 +343,6 @@ function displayCurrentWeather(data, language) {
     `;
 }
 
-// Function to display the 5-day forecast
 function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
     const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
@@ -361,27 +358,23 @@ function displayForecast(data, language) {
     });
 }
 
-// Function to translate weather conditions based on language
 function translateCondition(condition, language) {
     return translations[language][condition] || condition;
 }
 
-// Toggle Dark Mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
 
-// Event listener for language change
 languageSelectElement.addEventListener('change', () => {
     const language = languageSelectElement.value;
-    updateUIForLanguage(language);  // Translate UI labels and content without fetching new data
+    updateUIForLanguage(language);
     if (currentWeatherData) {
-        displayCurrentWeather(currentWeatherData, language);  // Re-display current weather with new language
-        displayForecast(currentWeatherData, language);  // Re-display forecast with new language
+        displayCurrentWeather(currentWeatherData, language);
+        displayForecast(currentWeatherData, language);
     }
 });
 
-// Function to update UI text for selected language
 function updateUIForLanguage(language) {
     appTitleElement.textContent = translations[language].appTitle;
     getWeatherButton.textContent = translations[language].getWeatherBtn;
@@ -389,17 +382,12 @@ function updateUIForLanguage(language) {
     forecastHeader.textContent = translations[language].forecastHeader;
 }
 
-// ** REMOVE input event listeners **
-// No automatic search on typing anymore!
-
-// Handle button click for weather fetch
 getWeatherButton.addEventListener('click', () => {
-    getWeather(); // Trigger the weather fetch only when the button is clicked
+    getWeather();
 });
 
-// Handle pressing the "Enter" key in the input field to fetch weather
 cityInputElement.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        getWeather();  // Trigger weather fetch when "Enter" is pressed
+        getWeather();
     }
 });
