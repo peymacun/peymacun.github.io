@@ -541,11 +541,7 @@ function translateCondition(condition, language) {
     return translatedConditions[language][condition] || condition;
 }
 
-
 function changeBackground(weatherCondition) {
-    // Log the condition to see if it's being parsed correctly
-    console.log("Weather Condition:", weatherCondition);
-
     // Remove all possible weather background classes first
     document.body.classList.remove(
         'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
