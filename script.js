@@ -511,6 +511,11 @@ function displayCurrentWeather(data, language) {
     changeBackground(weatherDescription);
 }
 
+// Auto-refresh every 5 minutes (300,000 milliseconds)
+setInterval(() => {
+    getWeather(); // Call getWeather() function to refresh the weather data
+}, 300000);  // 5 minutes in milliseconds
+
 // Function to display the 5-day forecast
 function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
