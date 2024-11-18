@@ -368,10 +368,179 @@ function displayForecast(data, language) {
     });
 }
 
-// Function to translate weather conditions based on language
 function translateCondition(condition, language) {
-    return translations[language][condition] || condition;
+    const translatedConditions = {
+        "en": {
+            "clear sky": "clear sky",
+            "few clouds": "few clouds",
+            "scattered clouds": "scattered clouds",
+            "broken clouds": "broken clouds",
+            "shower rain": "shower rain",
+            "rain": "rain",
+            "thunderstorm": "thunderstorm",
+            "snow": "snow",
+            "mist": "mist"
+        },
+        "es": {
+            "clear sky": "cielo claro",
+            "few clouds": "pocas nubes",
+            "scattered clouds": "nubes dispersas",
+            "broken clouds": "nubes rotas",
+            "shower rain": "lluvia débil",
+            "rain": "lluvia",
+            "thunderstorm": "tormenta",
+            "snow": "nieve",
+            "mist": "niebla"
+        },
+        "fr": {
+            "clear sky": "ciel dégagé",
+            "few clouds": "quelques nuages",
+            "scattered clouds": "nuages éparpillés",
+            "broken clouds": "nuages fragmentés",
+            "shower rain": "pluie faible",
+            "rain": "pluie",
+            "thunderstorm": "orages",
+            "snow": "neige",
+            "mist": "brouillard"
+        },
+        "de": {
+            "clear sky": "klarer Himmel",
+            "few clouds": "wenige Wolken",
+            "scattered clouds": "streuende Wolken",
+            "broken clouds": "zerbrochene Wolken",
+            "shower rain": "leichter Regen",
+            "rain": "Regen",
+            "thunderstorm": "Gewitter",
+            "snow": "Schnee",
+            "mist": "Nebel"
+        },
+        "it": {
+            "clear sky": "cielo sereno",
+            "few clouds": "poche nuvole",
+            "scattered clouds": "nuvole sparse",
+            "broken clouds": "nuvole rotte",
+            "shower rain": "pioggia leggera",
+            "rain": "pioggia",
+            "thunderstorm": "temporale",
+            "snow": "neve",
+            "mist": "nebbia"
+        },
+        "ru": {
+            "clear sky": "ясное небо",
+            "few clouds": "малооблачно",
+            "scattered clouds": "переменная облачность",
+            "broken clouds": "облачно",
+            "shower rain": "небольшой дождь",
+            "rain": "дождь",
+            "thunderstorm": "гроза",
+            "snow": "снег",
+            "mist": "туман"
+        },
+        "zh": {
+            "clear sky": "晴天",
+            "few clouds": "少云",
+            "scattered clouds": "多云",
+            "broken clouds": "阴天",
+            "shower rain": "阵雨",
+            "rain": "雨",
+            "thunderstorm": "雷暴",
+            "snow": "雪",
+            "mist": "雾"
+        },
+        "ja": {
+            "clear sky": "晴天",
+            "few clouds": "少し雲",
+            "scattered clouds": "散発的な雲",
+            "broken clouds": "曇り",
+            "shower rain": "にわか雨",
+            "rain": "雨",
+            "thunderstorm": "雷雨",
+            "snow": "雪",
+            "mist": "霧"
+        },
+        "ko": {
+            "clear sky": "맑은 하늘",
+            "few clouds": "가벼운 구름",
+            "scattered clouds": "흩어진 구름",
+            "broken clouds": "흐림",
+            "shower rain": "가벼운 비",
+            "rain": "비",
+            "thunderstorm": "천둥",
+            "snow": "눈",
+            "mist": "안개"
+        },
+        "ar": {
+            "clear sky": "سماء صافية",
+            "few clouds": "قليل من الغيوم",
+            "scattered clouds": "غيوم متفرقة",
+            "broken clouds": "غائم جزئيًا",
+            "shower rain": "أمطار خفيفة",
+            "rain": "مطر",
+            "thunderstorm": "عاصفة رعدية",
+            "snow": "ثلج",
+            "mist": "ضباب"
+        },
+        "tr": {
+            "clear sky": "açık hava",
+            "few clouds": "parçalı bulutlu",
+            "scattered clouds": "dağınık bulutlu",
+            "broken clouds": "kırık bulutlu",
+            "shower rain": "sağanak yağmur",
+            "rain": "yağmur",
+            "thunderstorm": "fırtına",
+            "snow": "kar",
+            "mist": "sis"
+        },
+        "hi": {
+            "clear sky": "स्पष्ट आकाश",
+            "few clouds": "थोड़े बादल",
+            "scattered clouds": "बिखरे हुए बादल",
+            "broken clouds": "खंडित बादल",
+            "shower rain": "हल्की बारिश",
+            "rain": "बारिश",
+            "thunderstorm": "आंधी-तूफान",
+            "snow": "बर्फ",
+            "mist": "कोहरा"
+        },
+        "pt": {
+            "clear sky": "céu limpo",
+            "few clouds": "poucas nuvens",
+            "scattered clouds": "nuvens dispersas",
+            "broken clouds": "nuvens quebradas",
+            "shower rain": "chuva fraca",
+            "rain": "chuva",
+            "thunderstorm": "tempestade",
+            "snow": "neve",
+            "mist": "nevoeiro"
+        },
+        "pl": {
+            "clear sky": "czyste niebo",
+            "few clouds": "kilka chmur",
+            "scattered clouds": "rozproszone chmury",
+            "broken clouds": "pochmurno",
+            "shower rain": "lekkie opady deszczu",
+            "rain": "deszcz",
+            "thunderstorm": "burza",
+            "snow": "śnieg",
+            "mist": "mgła"
+        },
+        "nl": {
+            "clear sky": "heldere lucht",
+            "few clouds": "weinig wolken",
+            "scattered clouds": "verspreide wolken",
+            "broken clouds": "gebroken wolken",
+            "shower rain": "lichte regen",
+            "rain": "regen",
+            "thunderstorm": "onweer",
+            "snow": "sneeuw",
+            "mist": "mist"
+        }
+    };
+
+    // Return the translated condition, or the original if not found in translations
+    return translatedConditions[language][condition] || condition;
 }
+
 
 function changeBackground(weatherCondition) {
     // Log the condition to see if it's being parsed correctly
@@ -400,9 +569,6 @@ function changeBackground(weatherCondition) {
         document.body.classList.add('thunderstorm');
     } else if (weatherCondition === 'mist') {
         document.body.classList.add('mist');
-    } else {
-        // Fallback for any conditions not explicitly defined
-        document.body.classList.add('clear-sky');
     }
 }
 
