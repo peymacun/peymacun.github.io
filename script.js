@@ -294,8 +294,8 @@ const translations = {
         "snow": "बर्फ",
         "mist": "कोहरा"
     }
-};
 
+};
 const conditionTranslations = {
     "clear sky": {
         "en": "clear sky",
@@ -339,48 +339,14 @@ const conditionTranslations = {
         "it": "nuvole sparse",
         "ru": "переменная облачность",
         "zh": "散云",
-        "ja": "散らばった雲",
+        "ja": "散発的な雲",
         "ko": "흩어진 구름",
-        "ar": "غائم جزئياً",
+        "ar": "غيوم متفرقة",
         "tr": "dağınık bulutlar",
         "hi": "विखंडित बादल",
         "pt": "nuvens dispersas",
         "pl": "rozproszone chmury",
         "nl": "verspreide wolken"
-    },
-    "broken clouds": {
-        "en": "broken clouds",
-        "es": "nubes rotas",
-        "fr": "nuages brisés",
-        "de": "zerbrochene Wolken",
-        "it": "nuvole rotte",
-        "ru": "облака разорвались",
-        "zh": "破碎的云",
-        "ja": "壊れた雲",
-        "ko": "부서진 구름",
-        "ar": "غيوم متقطعة",
-        "tr": "kırık bulutlar",
-        "hi": "टूटे हुए बादल",
-        "pt": "nuvens quebradas",
-        "pl": "rozbite chmury",
-        "nl": "gebroken wolken"
-    },
-    "shower rain": {
-        "en": "shower rain",
-        "es": "lluvia de chubasco",
-        "fr": "pluie d'averse",
-        "de": "Schauerregen",
-        "it": "pioggia a rovescio",
-        "ru": "ливень",
-        "zh": "阵雨",
-        "ja": "にわか雨",
-        "ko": "소나기 비",
-        "ar": "زخات مطر",
-        "tr": "sağanak yağış",
-        "hi": "बौछार बारिश",
-        "pt": "chuva de aguaceiro",
-        "pl": "deszcz przelotny",
-        "nl": "buitje regen"
     },
     "rain": {
         "en": "rain",
@@ -399,23 +365,6 @@ const conditionTranslations = {
         "pl": "deszcz",
         "nl": "regen"
     },
-    "thunderstorm": {
-        "en": "thunderstorm",
-        "es": "tormenta",
-        "fr": "orage",
-        "de": "Gewitter",
-        "it": "tempesta",
-        "ru": "гроза",
-        "zh": "雷暴",
-        "ja": "雷雨",
-        "ko": "천둥번개",
-        "ar": "عاصفة رعدية",
-        "tr": "fırtına",
-        "hi": "आंधी-तूफान",
-        "pt": "tempestade",
-        "pl": "burza",
-        "nl": "onweer"
-    },
     "snow": {
         "en": "snow",
         "es": "nieve",
@@ -432,6 +381,23 @@ const conditionTranslations = {
         "pt": "neve",
         "pl": "śnieg",
         "nl": "sneeuw"
+    },
+    "thunderstorm": {
+        "en": "thunderstorm",
+        "es": "tormenta",
+        "fr": "orage",
+        "de": "Gewitter",
+        "it": "temporale",
+        "ru": "гроза",
+        "zh": "雷暴",
+        "ja": "雷雨",
+        "ko": "천둥번개",
+        "ar": "عاصفة رعدية",
+        "tr": "fırtına",
+        "hi": "आंधी-तूफान",
+        "pt": "tempestade",
+        "pl": "burza",
+        "nl": "onweer"
     },
     "mist": {
         "en": "mist",
@@ -452,7 +418,47 @@ const conditionTranslations = {
     }
 };
 
-let currentWeatherData = null;
+function translateCondition(condition, language) {
+    for (let conditionKey in conditionTranslations) {
+        if (conditionTranslations[conditionKey][language] === condition) {
+            return conditionKey; // Return the English condition
+        }
+    }
+    return condition; // If no translation is found, return the original condition
+}
+
+function changeBackground(weatherCondition) {
+    // Remove all previous background classes
+    document.body.classList.remove(
+        'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
+        'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
+    );
+
+    // Apply the background based on the translated condition
+    if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
+        document.body.classList.add('clear-sky');
+    } else if (weatherCondition === 'few clouds') {
+        document.body.classList.add('few-clouds');
+    } else if (weatherCondition === 'scattered clouds') {
+        document.body.classList.add('scattered-clouds');
+    } else if (weatherCondition === 'broken clouds') {
+        document.body.classList.add('broken-clouds');
+    } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
+        document.body.classList.add('rainy');
+    } else if (weatherCondition === 'snow') {
+        document.body.classList.add('snowy');
+    } else if (weatherCondition === 'thunderstorm') {
+        document.body.classList.add('thunderstorm');
+    } else if (weatherCondition === 'mist') {
+        document.body.classList.add('mist');
+    } else {
+        document.body.classList.add('clear-sky'); // Fallback
+    }
+}
+
+
+// Main function to get weather data
+// Add necessary weather condition translations (same as the example above)
 
 async function getWeather() {
     const cityInput = cityInputElement.value.trim();
@@ -478,9 +484,10 @@ async function getWeather() {
         currentWeatherData = await currentResponse.json();
         const forecast = await forecastResponse.json();
 
+        // Translate the weather condition to English
         const translatedCondition = translateCondition(currentWeatherData.weather[0].description, language);
 
-        // Change background based on translated condition
+        // Update background based on the translated condition
         changeBackground(translatedCondition);
 
         displayCurrentWeather(currentWeatherData, language);
@@ -491,9 +498,11 @@ async function getWeather() {
     }
 }
 
+// Function to display current weather
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
-    
+
+    // Display current weather
     currentWeatherDiv.innerHTML = `
         <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
         <p>${weatherDescription}</p>
@@ -501,13 +510,19 @@ function displayCurrentWeather(data, language) {
         <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
         <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
     `;
+    
+    // Change background for the current weather
+    changeBackground(weatherDescription);
 }
 
+// Function to display the 5-day forecast
 function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
     const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
     dailyData.forEach(day => {
         const weatherDescription = translateCondition(day.weather[0].description, language);
+
+        // Append forecast data
         forecastDiv.innerHTML += `
             <div class="forecast-item">
                 <p>${new Date(day.dt_txt).toDateString()}</p>
@@ -515,9 +530,13 @@ function displayForecast(data, language) {
                 <p>${translations[language].temperatureLabel}: ${day.main.temp}°</p>
             </div>
         `;
+        
+        // Optional: Change background for forecast (if needed, or keep it just for current weather)
+        changeBackground(weatherDescription);
     });
 }
 
+// Translate the weather condition to English
 function translateCondition(condition, language) {
     for (let conditionKey in conditionTranslations) {
         if (conditionTranslations[conditionKey][language] === condition.toLowerCase()) {
@@ -527,14 +546,16 @@ function translateCondition(condition, language) {
     return condition; // If no translation found, return the original condition
 }
 
+// Function to change background based on the weather condition
 function changeBackground(weatherCondition) {
+    // Remove all previous background classes
     document.body.classList.remove(
         'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
         'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
     );
 
-    // Apply the correct background class based on the weather condition
-    if (weatherCondition === 'clear sky') {
+    // Apply the correct background based on the weather condition
+    if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
         document.body.classList.add('clear-sky');
     } else if (weatherCondition === 'few clouds') {
         document.body.classList.add('few-clouds');
@@ -542,23 +563,23 @@ function changeBackground(weatherCondition) {
         document.body.classList.add('scattered-clouds');
     } else if (weatherCondition === 'broken clouds') {
         document.body.classList.add('broken-clouds');
-    } else if (weatherCondition === 'shower rain') {
-        document.body.classList.add('shower-rain');
-    } else if (weatherCondition === 'rain') {
+    } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
         document.body.classList.add('rainy');
-    } else if (weatherCondition === 'thunderstorm') {
-        document.body.classList.add('thunderstorm');
     } else if (weatherCondition === 'snow') {
         document.body.classList.add('snowy');
+    } else if (weatherCondition === 'thunderstorm') {
+        document.body.classList.add('thunderstorm');
     } else if (weatherCondition === 'mist') {
         document.body.classList.add('mist');
     }
 }
 
+// Function to toggle dark mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
 
+// Event listener for language change
 languageSelectElement.addEventListener('change', function () {
     const language = languageSelectElement.value;
     updateUIForLanguage(language);
@@ -568,6 +589,7 @@ languageSelectElement.addEventListener('change', function () {
     }
 });
 
+// Function to update UI text for language
 function updateUIForLanguage(language) {
     appTitleElement.textContent = translations[language].appTitle;
     getWeatherButton.textContent = translations[language].getWeatherBtn;
@@ -575,6 +597,7 @@ function updateUIForLanguage(language) {
     forecastHeader.textContent = translations[language].forecastHeader;
 }
 
+// Event listener for the "Get Weather" button
 getWeatherButton.addEventListener('click', () => {
     getWeather();
 });
