@@ -10,7 +10,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    position: relative;  /* Ensure positioning works for the dark mode button */
+    position: relative;
 }
 
 #language-toggle {
@@ -23,8 +23,8 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    padding: 5px 10px;  /* Smaller padding */
-    font-size: 14px;  /* Smaller font size */
+    padding: 5px 10px;
+    font-size: 14px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -55,9 +55,9 @@ button:hover {
 
 #forecast {
     display: flex;
-    justify-content: center;  /* Align the forecast items horizontally */
-    gap: 15px;  /* Space between the forecast items */
-    flex-wrap: wrap;  /* Allow wrapping on smaller screens */
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
     margin-top: 20px;
 }
 
@@ -68,12 +68,16 @@ button:hover {
     border-radius: 5px;
     width: 150px;
     text-align: center;
-    box-sizing: border-box;  /* Ensure padding doesn't affect width */
-    font-size: 14px;  /* Adjust font size for clarity */
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
 .forecast-item p {
     margin: 5px 0;
+}
+
+.forecast-item img {
+    width: 50px;
 }
 
 .dark-mode .forecast-item {
@@ -87,81 +91,67 @@ button:hover {
 
 #current-weather {
     margin-top: 20px;
-    text-align: center;
 }
 
-/* Make the app title centered and spaced out a bit */
 h1 {
     margin-bottom: 20px;
 }
 
-/* Center the weather info */
 #current-weather, #forecast {
     margin-top: 20px;
 }
 
-/* Center the 5-Day Forecast title */
 #forecast-header {
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     .forecast-item {
-        width: 120px; /* Adjust the width for smaller screens */
+        width: 120px;
     }
 }
 
 @media (max-width: 480px) {
     .forecast-item {
-        width: 100%; /* Stack forecast items on very small screens */
+        width: 100%;
     }
 }
-/* Add background color for each weather condition */
 
-/* Clear Sky - Sunny Weather */
+/* Background colors for weather conditions */
 .clear-sky {
-    background-color: #00aaff; /* Light Sky Blue */
+    background-color: #00aaff;
 }
 
-/* Few Clouds */
 .few-clouds {
-    background-color: #a3c8f0; /* Light Blue with a hint of gray */
+    background-color: #a3c8f0;
 }
 
-/* Scattered Clouds */
 .scattered-clouds {
-    background-color: #82b4d3; /* Light Grayish Blue */
+    background-color: #82b4d3;
 }
 
-/* Broken Clouds */
 .broken-clouds {
-    background-color: #78909c; /* Muted Grayish Blue */
+    background-color: #78909c;
 }
 
-/* Shower Rain */
 .shower-rain {
-    background-color: #5f6368; /* Darker Blue-Grey */
+    background-color: #5f6368;
 }
 
-/* Rain */
 .rainy {
-    background-color: #5c6bc0; /* Darker Blue */
+    background-color: #5c6bc0;
 }
 
-/* Thunderstorm */
 .thunderstorm {
-    background-color: #607d8b; /* Dark Grey-Blue */
+    background-color: #607d8b;
 }
 
-/* Snow */
 .snowy {
-    background-color: #f0f4f8; /* Light Greyish White */
+    background-color: #f0f4f8;
 }
 
-/* Mist */
 .mist {
-    background-color: #b0bec5; /* Light Misty Grey */
+    background-color: #b0bec5;
 }
