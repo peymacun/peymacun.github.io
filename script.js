@@ -518,7 +518,8 @@ function translateCondition(condition, language) {
         }
     };
 
-    return translationMap[condition] ? translationMap[condition][language] || condition : condition;
+    // Now, map the condition to the translation
+    return translationMap[condition.toLowerCase()] || condition;
 }
 
 function changeBackground(weatherCondition) {
