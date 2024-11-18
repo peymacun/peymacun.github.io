@@ -321,16 +321,23 @@ async function getWeather() {
             throw new Error('Location not found or API error');
         }
 
-        currentWeatherData = await currentResponse.json();  // Store the current weather data
+        currentWeatherData = await currentResponse.json();
         const forecast = await forecastResponse.json();
+
+        // Log the current weather condition to ensure it's parsed correctly
+        console.log("Current Weather Condition:", currentWeatherData.weather[0].description);
 
         displayCurrentWeather(currentWeatherData, language);
         displayForecast(forecast, language);
+
+        // Update background based on the weather description
+        changeBackground(currentWeatherData.weather[0].description.toLowerCase()); // Use weather description from API
     } catch (error) {
-        console.error(error);  // Log any errors to the console
+        console.error(error);
         alert('Could not fetch weather data. Please try again.');
     }
 }
+
 
 // Function to display the current weather (using data fetched)
 function displayCurrentWeather(data, language) {
@@ -367,9 +374,17 @@ function translateCondition(condition, language) {
 }
 
 function changeBackground(weatherCondition) {
-    document.body.classList.remove('clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist');
+    // Log the condition to see if it's being parsed correctly
+    console.log("Weather Condition:", weatherCondition);
 
-    if (weatherCondition === 'clear' || weatherCondition === 'sunny') {
+    // Remove all possible weather background classes first
+    document.body.classList.remove(
+        'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
+        'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
+    );
+
+    // Add the appropriate class based on the weather condition
+    if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
         document.body.classList.add('clear-sky');
     } else if (weatherCondition === 'few clouds') {
         document.body.classList.add('few-clouds');
@@ -385,6 +400,9 @@ function changeBackground(weatherCondition) {
         document.body.classList.add('thunderstorm');
     } else if (weatherCondition === 'mist') {
         document.body.classList.add('mist');
+    } else {
+        // Fallback for any conditions not explicitly defined
+        document.body.classList.add('clear-sky');
     }
 }
 
