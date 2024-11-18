@@ -8,9 +8,10 @@ const getWeatherButton = document.getElementById('get-weather-btn');
 const darkModeButton = document.getElementById('dark-mode-btn');
 const forecastHeader = document.getElementById('forecast-header'); 
 
+// Full translations for all languages
 const translations = {
     "en": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Only Weather",
         "getWeatherBtn": "Get Weather",
         "darkModeBtn": "Dark Mode",
         "currentWeatherTitle": "Current Weather in",
@@ -29,7 +30,7 @@ const translations = {
         "mist": "Mist"
     },
     "ru": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Только Погода",
         "getWeatherBtn": "Получить Погоду",
         "darkModeBtn": "Тёмный Режим",
         "currentWeatherTitle": "Текущая Погода в",
@@ -48,7 +49,7 @@ const translations = {
         "mist": "Туман"
     },
     "es": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Solo Clima",
         "getWeatherBtn": "Obtener Clima",
         "darkModeBtn": "Modo Oscuro",
         "currentWeatherTitle": "Clima Actual en",
@@ -67,7 +68,7 @@ const translations = {
         "mist": "Niebla"
     },
     "fr": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Météo Seulement",
         "getWeatherBtn": "Obtenir Météo",
         "darkModeBtn": "Mode Sombre",
         "currentWeatherTitle": "Météo Actuelle à",
@@ -86,7 +87,7 @@ const translations = {
         "mist": "Brouillard"
     },
     "de": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Nur Wetter",
         "getWeatherBtn": "Wetter Abrufen",
         "darkModeBtn": "Dunkler Modus",
         "currentWeatherTitle": "Aktuelles Wetter in",
@@ -105,7 +106,7 @@ const translations = {
         "mist": "Nebel"
     },
     "it": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Solo Meteo",
         "getWeatherBtn": "Ottieni Meteo",
         "darkModeBtn": "Modalità Scura",
         "currentWeatherTitle": "Meteo Attuale a",
@@ -124,7 +125,7 @@ const translations = {
         "mist": "Nebbia"
     },
     "pt": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Somente Tempo",
         "getWeatherBtn": "Obter Tempo",
         "darkModeBtn": "Modo Escuro",
         "currentWeatherTitle": "Clima Atual em",
@@ -143,7 +144,7 @@ const translations = {
         "mist": "Névoa"
     },
     "pl": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Tylko Pogoda",
         "getWeatherBtn": "Pobierz Pogodę",
         "darkModeBtn": "Tryb Ciemny",
         "currentWeatherTitle": "Aktualna Pogoda w",
@@ -162,7 +163,7 @@ const translations = {
         "mist": "Mgła"
     },
     "nl": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Helder Lucht",
         "getWeatherBtn": "Krijg Weer",
         "darkModeBtn": "Donkere Modus",
         "currentWeatherTitle": "Huidig Weer in",
@@ -181,7 +182,7 @@ const translations = {
         "mist": "Mist"
     },
     "zh": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "只有天气",
         "getWeatherBtn": "获取天气",
         "darkModeBtn": "暗模式",
         "currentWeatherTitle": "当前天气在",
@@ -200,7 +201,7 @@ const translations = {
         "mist": "雾"
     },
     "ja": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "天気だけ",
         "getWeatherBtn": "天気を取得",
         "darkModeBtn": "ダークモード",
         "currentWeatherTitle": "現在の天気",
@@ -219,7 +220,7 @@ const translations = {
         "mist": "霧"
     },
     "ko": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "날씨만",
         "getWeatherBtn": "날씨 가져오기",
         "darkModeBtn": "어두운 모드",
         "currentWeatherTitle": "현재 날씨",
@@ -238,7 +239,7 @@ const translations = {
         "mist": "안개"
     },
     "ar": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "فقط الطقس",
         "getWeatherBtn": "الحصول على الطقس",
         "darkModeBtn": "الوضع المظلم",
         "currentWeatherTitle": "الطقس الحالي في",
@@ -257,7 +258,7 @@ const translations = {
         "mist": "ضباب"
     },
     "tr": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "Sadece Hava Durumu",
         "getWeatherBtn": "Hava Durumunu Al",
         "darkModeBtn": "Karanlık Mod",
         "currentWeatherTitle": "Şu Anki Hava Durumu",
@@ -276,7 +277,7 @@ const translations = {
         "mist": "Sis"
     },
     "hi": {
-        "appTitle": "OnlyWeathers",
+        "appTitle": "सिर्फ मौसम",
         "getWeatherBtn": "मौसम प्राप्त करें",
         "darkModeBtn": "अंधेरे मोड",
         "currentWeatherTitle": "वर्तमान मौसम",
@@ -296,8 +297,9 @@ const translations = {
     }
 };
 
-let currentWeatherData = null;
+let currentWeatherData = null;  // Store fetched weather data globally
 
+// Function to fetch and display the weather based on the city input
 async function getWeather() {
     const cityInput = cityInputElement.value.trim();
     if (!cityInput) {
@@ -319,17 +321,18 @@ async function getWeather() {
             throw new Error('Location not found or API error');
         }
 
-        currentWeatherData = await currentResponse.json();
+        currentWeatherData = await currentResponse.json();  // Store the current weather data
         const forecast = await forecastResponse.json();
 
         displayCurrentWeather(currentWeatherData, language);
         displayForecast(forecast, language);
     } catch (error) {
-        console.error(error);
+        console.error(error);  // Log any errors to the console
         alert('Could not fetch weather data. Please try again.');
     }
 }
 
+// Function to display the current weather (using data fetched)
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
 
@@ -342,6 +345,7 @@ function displayCurrentWeather(data, language) {
     `;
 }
 
+// Function to display the 5-day forecast
 function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
     const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
@@ -357,23 +361,49 @@ function displayForecast(data, language) {
     });
 }
 
+// Function to translate weather conditions based on language
 function translateCondition(condition, language) {
     return translations[language][condition] || condition;
 }
 
+function changeBackground(weatherCondition) {
+    document.body.classList.remove('clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist');
+
+    if (weatherCondition === 'clear' || weatherCondition === 'sunny') {
+        document.body.classList.add('clear-sky');
+    } else if (weatherCondition === 'few clouds') {
+        document.body.classList.add('few-clouds');
+    } else if (weatherCondition === 'scattered clouds') {
+        document.body.classList.add('scattered-clouds');
+    } else if (weatherCondition === 'broken clouds') {
+        document.body.classList.add('broken-clouds');
+    } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
+        document.body.classList.add('rainy');
+    } else if (weatherCondition === 'snow') {
+        document.body.classList.add('snowy');
+    } else if (weatherCondition === 'thunderstorm') {
+        document.body.classList.add('thunderstorm');
+    } else if (weatherCondition === 'mist') {
+        document.body.classList.add('mist');
+    }
+}
+
+// Toggle Dark Mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
 
+// Event listener for language change
 languageSelectElement.addEventListener('change', () => {
     const language = languageSelectElement.value;
-    updateUIForLanguage(language);
+    updateUIForLanguage(language);  // Translate UI labels and content without fetching new data
     if (currentWeatherData) {
-        displayCurrentWeather(currentWeatherData, language);
-        displayForecast(currentWeatherData, language);
+        displayCurrentWeather(currentWeatherData, language);  // Re-display current weather with new language
+        displayForecast(currentWeatherData, language);  // Re-display forecast with new language
     }
 });
 
+// Function to update UI text for selected language
 function updateUIForLanguage(language) {
     appTitleElement.textContent = translations[language].appTitle;
     getWeatherButton.textContent = translations[language].getWeatherBtn;
@@ -381,12 +411,7 @@ function updateUIForLanguage(language) {
     forecastHeader.textContent = translations[language].forecastHeader;
 }
 
+// Handle button click for weather fetch
 getWeatherButton.addEventListener('click', () => {
-    getWeather();
-});
-
-cityInputElement.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        getWeather();
-    }
+    getWeather(); // Trigger the weather fetch only when the button is clicked
 });
