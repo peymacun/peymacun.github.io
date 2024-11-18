@@ -498,11 +498,11 @@ async function getWeather() {
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
 
-    // Display current weather
+    // Display current weather with temperature first
     currentWeatherDiv.innerHTML = `
         <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
-        <p>${weatherDescription}</p>
-        <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p>
+        <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p> <!-- Display Temperature first -->
+        <p>${weatherDescription}</p> <!-- Display weather condition after Temperature -->
         <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
         <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
     `;
