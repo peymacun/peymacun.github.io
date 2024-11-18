@@ -336,7 +336,7 @@ async function getWeather() {
 
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
-
+    
     currentWeatherDiv.innerHTML = `
         <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
         <p>${weatherDescription}</p>
@@ -363,162 +363,17 @@ function displayForecast(data, language) {
 
 function translateCondition(condition, language) {
     const translationMap = {
-        "clear sky": {
-            "en": "clear sky",
-            "es": "cielo claro",
-            "fr": "ciel dégagé",
-            "de": "klarer Himmel",
-            "it": "cielo sereno",
-            "ru": "ясное небо",
-            "zh": "晴天",
-            "ja": "晴天",
-            "ko": "맑은 하늘",
-            "ar": "سماء صافية",
-            "tr": "açık hava",
-            "hi": "स्पष्ट आकाश",
-            "pt": "céu limpo",
-            "pl": "czyste niebo",
-            "nl": "heldere lucht"
-        },
-        "few clouds": {
-            "en": "few clouds",
-            "es": "pocas nubes",
-            "fr": "quelques nuages",
-            "de": "wenige Wolken",
-            "it": "poche nuvole",
-            "ru": "малооблачно",
-            "zh": "少云",
-            "ja": "少し雲",
-            "ko": "가벼운 구름",
-            "ar": "قليل من الغيوم",
-            "tr": "parçalı bulutlu",
-            "hi": "थोड़े बादल",
-            "pt": "poucas nuvens",
-            "pl": "kilka chmur",
-            "nl": "weinig wolken"
-        },
-        "scattered clouds": {
-            "en": "scattered clouds",
-            "es": "nubes dispersas",
-            "fr": "nuages éparpillés",
-            "de": "streuende Wolken",
-            "it": "nuvole sparse",
-            "ru": "переменная облачность",
-            "zh": "多云",
-            "ja": "散発的な雲",
-            "ko": "흩어진 구름",
-            "ar": "غيوم متفرقة",
-            "tr": "dağınık bulutlu",
-            "hi": "बिखरे हुए बादल",
-            "pt": "nuvens dispersas",
-            "pl": "rozproszone chmury",
-            "nl": "verspreide wolken"
-        },
-        "broken clouds": {
-            "en": "broken clouds",
-            "es": "nubes rotas",
-            "fr": "nuages fragmentés",
-            "de": "zerbrochene Wolken",
-            "it": "nuvole rotte",
-            "ru": "облачно",
-            "zh": "阴天",
-            "ja": "曇り",
-            "ko": "흐림",
-            "ar": "غائم جزئيًا",
-            "tr": "kırık bulutlu",
-            "hi": "खंडित बादल",
-            "pt": "nuvens quebradas",
-            "pl": "pochmurno",
-            "nl": "gebroken wolken"
-        },
-        "shower rain": {
-            "en": "shower rain",
-            "es": "lluvia débil",
-            "fr": "pluie faible",
-            "de": "leichter Regen",
-            "it": "pioggia leggera",
-            "ru": "небольшой дождь",
-            "zh": "阵雨",
-            "ja": "にわか雨",
-            "ko": "가벼운 비",
-            "ar": "أمطار خفيفة",
-            "tr": "sağanak yağmur",
-            "hi": "हल्की बारिश",
-            "pt": "chuva fraca",
-            "pl": "lekkie opady deszczu",
-            "nl": "lichte regen"
-        },
-        "rain": {
-            "en": "rain",
-            "es": "lluvia",
-            "fr": "pluie",
-            "de": "Regen",
-            "it": "pioggia",
-            "ru": "дождь",
-            "zh": "雨",
-            "ja": "雨",
-            "ko": "비",
-            "ar": "مطر",
-            "tr": "yağmur",
-            "hi": "बारिश",
-            "pt": "chuva",
-            "pl": "deszcz",
-            "nl": "regen"
-        },
-        "thunderstorm": {
-            "en": "thunderstorm",
-            "es": "tormenta",
-            "fr": "orages",
-            "de": "Gewitter",
-            "it": "temporale",
-            "ru": "гроза",
-            "zh": "雷暴",
-            "ja": "雷雨",
-            "ko": "천둥",
-            "ar": "عاصفة رعدية",
-            "tr": "fırtına",
-            "hi": "आंधी-तूफान",
-            "pt": "tempestade",
-            "pl": "burza",
-            "nl": "onweer"
-        },
-        "snow": {
-            "en": "snow",
-            "es": "nieve",
-            "fr": "neige",
-            "de": "Schnee",
-            "it": "neve",
-            "ru": "снег",
-            "zh": "雪",
-            "ja": "雪",
-            "ko": "눈",
-            "ar": "ثلج",
-            "tr": "kar",
-            "hi": "बर्फ",
-            "pt": "neve",
-            "pl": "śnieg",
-            "nl": "sneeuw"
-        },
-        "mist": {
-            "en": "mist",
-            "es": "niebla",
-            "fr": "brouillard",
-            "de": "Nebel",
-            "it": "nebbia",
-            "ru": "туман",
-            "zh": "雾",
-            "ja": "霧",
-            "ko": "안개",
-            "ar": "ضباب",
-            "tr": "sis",
-            "hi": "कोहरा",
-            "pt": "nevoeiro",
-            "pl": "mgła",
-            "nl": "mist"
-        }
+        "clear sky": "clear sky",
+        "few clouds": "few clouds",
+        "scattered clouds": "scattered clouds",
+        "broken clouds": "broken clouds",
+        "shower rain": "shower rain",
+        "rain": "rain",
+        "thunderstorm": "thunderstorm",
+        "snow": "snow",
+        "mist": "mist"
     };
 
-    // Now, map the condition to the translation
     return translationMap[condition.toLowerCase()] || condition;
 }
 
@@ -528,23 +383,26 @@ function changeBackground(weatherCondition) {
         'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
     );
 
-    if (weatherCondition === 'clear sky') {
+    // Match translated conditions with English conditions and apply background
+    const condition = weatherCondition.toLowerCase();
+
+    if (condition === 'clear sky') {
         document.body.classList.add('clear-sky');
-    } else if (weatherCondition === 'few clouds') {
+    } else if (condition === 'few clouds') {
         document.body.classList.add('few-clouds');
-    } else if (weatherCondition === 'scattered clouds') {
+    } else if (condition === 'scattered clouds') {
         document.body.classList.add('scattered-clouds');
-    } else if (weatherCondition === 'broken clouds') {
+    } else if (condition === 'broken clouds') {
         document.body.classList.add('broken-clouds');
-    } else if (weatherCondition === 'shower rain') {
+    } else if (condition === 'shower rain') {
         document.body.classList.add('shower-rain');
-    } else if (weatherCondition === 'rain') {
+    } else if (condition === 'rain') {
         document.body.classList.add('rainy');
-    } else if (weatherCondition === 'thunderstorm') {
+    } else if (condition === 'thunderstorm') {
         document.body.classList.add('thunderstorm');
-    } else if (weatherCondition === 'snow') {
+    } else if (condition === 'snow') {
         document.body.classList.add('snowy');
-    } else if (weatherCondition === 'mist') {
+    } else if (condition === 'mist') {
         document.body.classList.add('mist');
     }
 }
