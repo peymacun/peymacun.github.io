@@ -452,7 +452,8 @@ const conditionTranslations = {
     }
 };
 
-// Main function to get weather
+let currentWeatherData = null;
+
 async function getWeather() {
     const cityInput = cityInputElement.value.trim();
     if (!cityInput) {
@@ -490,7 +491,6 @@ async function getWeather() {
     }
 }
 
-// Function to display current weather
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
     
@@ -503,7 +503,6 @@ function displayCurrentWeather(data, language) {
     `;
 }
 
-// Function to display the 5-day forecast
 function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
     const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
@@ -519,18 +518,15 @@ function displayForecast(data, language) {
     });
 }
 
-// Translate the weather condition to the correct language
 function translateCondition(condition, language) {
-    // Check for the condition in the map and return the translation for the selected language
     for (let conditionKey in conditionTranslations) {
         if (conditionTranslations[conditionKey][language] === condition.toLowerCase()) {
-            return conditionKey; // Return the condition in English
+            return conditionKey; // Return the English condition
         }
     }
     return condition; // If no translation found, return the original condition
 }
 
-// Change the background based on the weather condition
 function changeBackground(weatherCondition) {
     document.body.classList.remove(
         'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
