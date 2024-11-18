@@ -456,10 +456,6 @@ function changeBackground(weatherCondition) {
     }
 }
 
-
-// Main function to get weather data
-// Add necessary weather condition translations (same as the example above)
-
 async function getWeather() {
     const cityInput = cityInputElement.value.trim();
     if (!cityInput) {
@@ -600,4 +596,12 @@ function updateUIForLanguage(language) {
 // Event listener for the "Get Weather" button
 getWeatherButton.addEventListener('click', () => {
     getWeather();
+})
+
+// Event listener for "Enter" key press in the city input field
+cityInputElement.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();  // Prevent form submission if it's in a form
+        getWeather();  // Trigger the weather search when Enter is pressed
+    }
 });
