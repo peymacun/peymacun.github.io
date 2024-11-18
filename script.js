@@ -366,6 +366,28 @@ function translateCondition(condition, language) {
     return translations[language][condition] || condition;
 }
 
+function changeBackground(weatherCondition) {
+    document.body.classList.remove('clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist');
+
+    if (weatherCondition === 'clear' || weatherCondition === 'sunny') {
+        document.body.classList.add('clear-sky');
+    } else if (weatherCondition === 'few clouds') {
+        document.body.classList.add('few-clouds');
+    } else if (weatherCondition === 'scattered clouds') {
+        document.body.classList.add('scattered-clouds');
+    } else if (weatherCondition === 'broken clouds') {
+        document.body.classList.add('broken-clouds');
+    } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
+        document.body.classList.add('rainy');
+    } else if (weatherCondition === 'snow') {
+        document.body.classList.add('snowy');
+    } else if (weatherCondition === 'thunderstorm') {
+        document.body.classList.add('thunderstorm');
+    } else if (weatherCondition === 'mist') {
+        document.body.classList.add('mist');
+    }
+}
+
 // Toggle Dark Mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');

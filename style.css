@@ -119,3 +119,49 @@ h1 {
         width: 100%; /* Stack forecast items on very small screens */
     }
 }
+/* Add background color for each weather condition */
+
+/* Clear Sky - Sunny Weather */
+.clear-sky {
+    background-color: #00aaff; /* Light Sky Blue */
+}
+
+/* Few Clouds */
+.few-clouds {
+    background-color: #a3c8f0; /* Light Blue with a hint of gray */
+}
+
+/* Scattered Clouds */
+.scattered-clouds {
+    background-color: #82b4d3; /* Light Grayish Blue */
+}
+
+/* Broken Clouds */
+.broken-clouds {
+    background-color: #78909c; /* Muted Grayish Blue */
+}
+
+/* Shower Rain */
+.shower-rain {
+    background-color: #5f6368; /* Darker Blue-Grey */
+}
+
+/* Rain */
+.rainy {
+    background-color: #5c6bc0; /* Darker Blue */
+}
+
+/* Thunderstorm */
+.thunderstorm {
+    background-color: #607d8b; /* Dark Grey-Blue */
+}
+
+/* Snow */
+.snowy {
+    background-color: #f0f4f8; /* Light Greyish White */
+}
+
+/* Mist */
+.mist {
+    background-color: #b0bec5; /* Light Misty Grey */
+}
