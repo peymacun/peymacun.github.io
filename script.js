@@ -296,8 +296,163 @@ const translations = {
     }
 };
 
-let currentWeatherData = null;
+const conditionTranslations = {
+    "clear sky": {
+        "en": "clear sky",
+        "es": "cielo claro",
+        "fr": "ciel dégagé",
+        "de": "klarer Himmel",
+        "it": "cielo sereno",
+        "ru": "ясное небо",
+        "zh": "晴天",
+        "ja": "晴天",
+        "ko": "맑은 하늘",
+        "ar": "سماء صافية",
+        "tr": "açık hava",
+        "hi": "स्पष्ट आकाश",
+        "pt": "céu limpo",
+        "pl": "czyste niebo",
+        "nl": "heldere lucht"
+    },
+    "few clouds": {
+        "en": "few clouds",
+        "es": "pocas nubes",
+        "fr": "quelques nuages",
+        "de": "wenige Wolken",
+        "it": "poche nuvole",
+        "ru": "малооблачно",
+        "zh": "少云",
+        "ja": "少し雲",
+        "ko": "가벼운 구름",
+        "ar": "قليل من الغيوم",
+        "tr": "parçalı bulutlu",
+        "hi": "थोड़े बादल",
+        "pt": "poucas nuvens",
+        "pl": "kilka chmur",
+        "nl": "weinig wolken"
+    },
+    "scattered clouds": {
+        "en": "scattered clouds",
+        "es": "nubes dispersas",
+        "fr": "nuages épars",
+        "de": "streuende Wolken",
+        "it": "nuvole sparse",
+        "ru": "переменная облачность",
+        "zh": "散云",
+        "ja": "散らばった雲",
+        "ko": "흩어진 구름",
+        "ar": "غائم جزئياً",
+        "tr": "dağınık bulutlar",
+        "hi": "विखंडित बादल",
+        "pt": "nuvens dispersas",
+        "pl": "rozproszone chmury",
+        "nl": "verspreide wolken"
+    },
+    "broken clouds": {
+        "en": "broken clouds",
+        "es": "nubes rotas",
+        "fr": "nuages brisés",
+        "de": "zerbrochene Wolken",
+        "it": "nuvole rotte",
+        "ru": "облака разорвались",
+        "zh": "破碎的云",
+        "ja": "壊れた雲",
+        "ko": "부서진 구름",
+        "ar": "غيوم متقطعة",
+        "tr": "kırık bulutlar",
+        "hi": "टूटे हुए बादल",
+        "pt": "nuvens quebradas",
+        "pl": "rozbite chmury",
+        "nl": "gebroken wolken"
+    },
+    "shower rain": {
+        "en": "shower rain",
+        "es": "lluvia de chubasco",
+        "fr": "pluie d'averse",
+        "de": "Schauerregen",
+        "it": "pioggia a rovescio",
+        "ru": "ливень",
+        "zh": "阵雨",
+        "ja": "にわか雨",
+        "ko": "소나기 비",
+        "ar": "زخات مطر",
+        "tr": "sağanak yağış",
+        "hi": "बौछार बारिश",
+        "pt": "chuva de aguaceiro",
+        "pl": "deszcz przelotny",
+        "nl": "buitje regen"
+    },
+    "rain": {
+        "en": "rain",
+        "es": "lluvia",
+        "fr": "pluie",
+        "de": "Regen",
+        "it": "pioggia",
+        "ru": "дождь",
+        "zh": "雨",
+        "ja": "雨",
+        "ko": "비",
+        "ar": "مطر",
+        "tr": "yağmur",
+        "hi": "बारिश",
+        "pt": "chuva",
+        "pl": "deszcz",
+        "nl": "regen"
+    },
+    "thunderstorm": {
+        "en": "thunderstorm",
+        "es": "tormenta",
+        "fr": "orage",
+        "de": "Gewitter",
+        "it": "tempesta",
+        "ru": "гроза",
+        "zh": "雷暴",
+        "ja": "雷雨",
+        "ko": "천둥번개",
+        "ar": "عاصفة رعدية",
+        "tr": "fırtına",
+        "hi": "आंधी-तूफान",
+        "pt": "tempestade",
+        "pl": "burza",
+        "nl": "onweer"
+    },
+    "snow": {
+        "en": "snow",
+        "es": "nieve",
+        "fr": "neige",
+        "de": "Schnee",
+        "it": "neve",
+        "ru": "снег",
+        "zh": "雪",
+        "ja": "雪",
+        "ko": "눈",
+        "ar": "ثلج",
+        "tr": "kar",
+        "hi": "बर्फ",
+        "pt": "neve",
+        "pl": "śnieg",
+        "nl": "sneeuw"
+    },
+    "mist": {
+        "en": "mist",
+        "es": "niebla",
+        "fr": "brouillard",
+        "de": "Nebel",
+        "it": "nebbia",
+        "ru": "туман",
+        "zh": "雾",
+        "ja": "霧",
+        "ko": "안개",
+        "ar": "ضباب",
+        "tr": "sis",
+        "hi": "कोहरा",
+        "pt": "nevoeiro",
+        "pl": "mgła",
+        "nl": "mist"
+    }
+};
 
+// Main function to get weather
 async function getWeather() {
     const cityInput = cityInputElement.value.trim();
     if (!cityInput) {
@@ -324,6 +479,7 @@ async function getWeather() {
 
         const translatedCondition = translateCondition(currentWeatherData.weather[0].description, language);
 
+        // Change background based on translated condition
         changeBackground(translatedCondition);
 
         displayCurrentWeather(currentWeatherData, language);
@@ -334,6 +490,7 @@ async function getWeather() {
     }
 }
 
+// Function to display current weather
 function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
     
@@ -346,6 +503,7 @@ function displayCurrentWeather(data, language) {
     `;
 }
 
+// Function to display the 5-day forecast
 function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
     const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
@@ -361,48 +519,42 @@ function displayForecast(data, language) {
     });
 }
 
+// Translate the weather condition to the correct language
 function translateCondition(condition, language) {
-    const translationMap = {
-        "clear sky": "clear sky",
-        "few clouds": "few clouds",
-        "scattered clouds": "scattered clouds",
-        "broken clouds": "broken clouds",
-        "shower rain": "shower rain",
-        "rain": "rain",
-        "thunderstorm": "thunderstorm",
-        "snow": "snow",
-        "mist": "mist"
-    };
-
-    return translationMap[condition.toLowerCase()] || condition;
+    // Check for the condition in the map and return the translation for the selected language
+    for (let conditionKey in conditionTranslations) {
+        if (conditionTranslations[conditionKey][language] === condition.toLowerCase()) {
+            return conditionKey; // Return the condition in English
+        }
+    }
+    return condition; // If no translation found, return the original condition
 }
 
+// Change the background based on the weather condition
 function changeBackground(weatherCondition) {
     document.body.classList.remove(
         'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
         'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
     );
 
-    // Match translated conditions with English conditions and apply background
-    const condition = weatherCondition.toLowerCase();
-
-    if (condition === 'clear sky') {
+    // Apply the correct background class based on the weather condition
+    if (weatherCondition === 'clear sky') {
         document.body.classList.add('clear-sky');
-    } else if (condition === 'few clouds') {
+    } else if (weatherCondition === 'few clouds') {
         document.body.classList.add('few-clouds');
-    } else if (condition === 'scattered clouds') {
+    } else if (weatherCondition === 'scattered clouds') {
         document.body.classList.add('scattered-clouds');
-    } else if (condition === 'broken clouds') {
+    } else if (weatherCondition === 'broken clouds') {
         document.body.classList.add('broken-clouds');
-    } else if (condition === 'shower rain') {
+    } else if (weatherCondition === 'shower rain') {
         document.body.classList.add('shower-rain');
-    } else if (condition === 'rain') {
+    } else if (weatherCondition === 'rain') {
         document.body.classList.add('rainy');
-    } else if (condition === 'thunderstorm') {
+    } else if (weatherCondition === 'thunderstorm') {
         document.body.classList.add('thunderstorm');
-    } else if (condition === 'snow') {
+    } else if (weatherCondition === 'snow') {
         document.body.classList.add('snowy');
-    } else if (condition === 'mist') {
+    } else if (weatherCondition === 'mist') {
         document.body.classList.add('mist');
     }
 }
