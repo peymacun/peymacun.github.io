@@ -429,184 +429,131 @@ function translateCondition(condition, language) {
 
 function changeBackground(weatherCondition) {
     // Remove all previous background classes
-    document.body.classList.remove(
-        'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
-        'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
-    );
-
+    document.body.className = document.body.className.replace(/\b(clear-sky|few-clouds|scattered-clouds|broken-clouds|rainy|shower-rain|snowy|thunderstorm|mist)\b/g, '');
+  
     // Apply the background based on the translated condition
     if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
-        document.body.classList.add('clear-sky');
+      document.body.classList.add('clear-sky');
     } else if (weatherCondition === 'few clouds') {
-        document.body.classList.add('few-clouds');
+      document.body.classList.add('few-clouds');
     } else if (weatherCondition === 'scattered clouds') {
-        document.body.classList.add('scattered-clouds');
+      document.body.classList.add('scattered-clouds');
     } else if (weatherCondition === 'broken clouds') {
-        document.body.classList.add('broken-clouds');
+      document.body.classList.add('broken-clouds');
     } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
-        document.body.classList.add('rainy');
+      document.body.classList.add('rainy');
     } else if (weatherCondition === 'snow') {
-        document.body.classList.add('snowy');
+      document.body.classList.add('snowy');
     } else if (weatherCondition === 'thunderstorm') {
-        document.body.classList.add('thunderstorm');
+      document.body.classList.add('thunderstorm');
     } else if (weatherCondition === 'mist') {
-        document.body.classList.add('mist');
+      document.body.classList.add('mist');
     } else {
-        document.body.classList.add('clear-sky'); // Fallback
+      document.body.classList.add('clear-sky'); // Fallback
     }
-}
-
-async function getWeather() {
+  }
+  
+  async function getWeather() {
     const cityInput = cityInputElement.value.trim();
     if (!cityInput) {
-        alert('Please enter a city name');
-        return;
+      alert('Please enter a city name');
+      return;
     }
-
+  
     const language = languageSelectElement.value;
     const units = 'metric';
-
+  
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=${units}&lang=${language}&appid=${apiKey}`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&units=${units}&lang=${language}&appid=${apiKey}`;
-
+  
     try {
-        const currentResponse = await fetch(url);
-        const forecastResponse = await fetch(forecastUrl);
-
-        if (!currentResponse.ok || !forecastResponse.ok) {
-            throw new Error('Location not found or API error');
-        }
-
-        currentWeatherData = await currentResponse.json();
-        const forecast = await forecastResponse.json();
-
-        // Translate the weather condition to English
-        const translatedCondition = translateCondition(currentWeatherData.weather[0].description, language);
-
-        // Update background based on the translated condition
-        changeBackground(translatedCondition);
-
-        displayCurrentWeather(currentWeatherData, language);
-        displayForecast(forecast, language);
+      const [currentResponse, forecastResponse] = await Promise.all([fetch(url), fetch(forecastUrl)]);
+  
+      if (!currentResponse.ok || !forecastResponse.ok) {
+        throw new Error('Location not found or API error');
+      }
+  
+      const currentWeatherData = await currentResponse.json();
+      const forecastData = await forecastResponse.json();
+  
+      // Translate the weather condition to English
+      const translatedCondition = translateCondition(currentWeatherData.weather[0].description, language);
+  
+      // Update background based on the translated condition
+      changeBackground(translatedCondition);
+  
+      displayCurrentWeather(currentWeatherData, language);
+      displayForecast(forecastData, language);
     } catch (error) {
-        console.error(error);
-        alert('Could not fetch weather data. Please try again.');
+      console.error(error);
+      alert('Could not fetch weather data. Please try again.');
     }
-}
-
-// Function to display current weather
-function displayCurrentWeather(data, language) {
+  }
+  
+  // Function to display current weather
+  function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
-
+  
     // Display current weather with temperature first
     currentWeatherDiv.innerHTML = `
-        <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
-        <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p> <!-- Display Temperature first -->
-        <p>${weatherDescription}</p> <!-- Display weather condition after Temperature -->
-        <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
-        <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
+      <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
+      <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p> <!-- Display Temperature first -->
+      <p>${weatherDescription}</p> <!-- Display weather condition after Temperature -->
+      <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
+      <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
     `;
-    
+  
     // Change background for the current weather
     changeBackground(weatherDescription);
-}
-
-// Auto-refresh every 5 minutes (300,000 milliseconds)
-setInterval(() => {
-    getWeather(); // Call getWeather() function to refresh the weather data
-}, 300000);  // 5 minutes in milliseconds
-
-// Function to display the 5-day forecast
-function displayForecast(data, language) {
+  }
+  
+  // Function to display the 5-day forecast
+  function displayForecast(data, language) {
     forecastDiv.innerHTML = '';
     const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
     dailyData.forEach(day => {
-        const weatherDescription = translateCondition(day.weather[0].description, language);
-
-        // Append forecast data
-        forecastDiv.innerHTML += `
-            <div class="forecast-item">
-                <p>${new Date(day.dt_txt).toDateString()}</p>
-                <p>${weatherDescription}</p>
-                <p>${translations[language].temperatureLabel}: ${day.main.temp}°</p>
-            </div>
-        `;
-        
-        // Optional: Change background for forecast (if needed, or keep it just for current weather)
-        changeBackground(weatherDescription);
+      const weatherDescription = translateCondition(day.weather[0].description, language);
+  
+      // Append forecast data
+      forecastDiv.innerHTML += `
+        <div class="forecast-item">
+          <p>${new Date(day.dt_txt).toDateString()}</p>
+          <p>${weatherDescription}</p>
+          <p>${translations[language].temperatureLabel}: ${day.main.temp}°</p>
+        </div>
+      `;
     });
-}
-
-// Translate the weather condition to English
-function translateCondition(condition, language) {
-    for (let conditionKey in conditionTranslations) {
-        if (conditionTranslations[conditionKey][language] === condition.toLowerCase()) {
-            return conditionKey; // Return the English condition
-        }
-    }
-    return condition; // If no translation found, return the original condition
-}
-
-// Function to change background based on the weather condition
-function changeBackground(weatherCondition) {
-    // Remove all previous background classes
-    document.body.classList.remove(
-        'clear-sky', 'few-clouds', 'scattered-clouds', 'broken-clouds', 
-        'rainy', 'shower-rain', 'snowy', 'thunderstorm', 'mist'
-    );
-
-    // Apply the correct background based on the weather condition
-    if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
-        document.body.classList.add('clear-sky');
-    } else if (weatherCondition === 'few clouds') {
-        document.body.classList.add('few-clouds');
-    } else if (weatherCondition === 'scattered clouds') {
-        document.body.classList.add('scattered-clouds');
-    } else if (weatherCondition === 'broken clouds') {
-        document.body.classList.add('broken-clouds');
-    } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
-        document.body.classList.add('rainy');
-    } else if (weatherCondition === 'snow') {
-        document.body.classList.add('snowy');
-    } else if (weatherCondition === 'thunderstorm') {
-        document.body.classList.add('thunderstorm');
-    } else if (weatherCondition === 'mist') {
-        document.body.classList.add('mist');
-    }
-}
-
-// Function to toggle dark mode
-function toggleDarkMode() {
+  }
+  
+  // Function to toggle dark mode
+  function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-}
-
-// Event listener for language change
-languageSelectElement.addEventListener('change', function () {
+  }
+  
+  // Event listener for language change
+  languageSelectElement.addEventListener('change', function () {
     const language = languageSelectElement.value;
     updateUIForLanguage(language);
-    if (currentWeatherData) {
-        displayCurrentWeather(currentWeatherData, language);
-        displayForecast(currentWeatherData, language);
+    if (currentWeatherDiv.innerHTML) {
+      getWeather(); // Refresh weather data in the selected language
     }
-});
-
-// Function to update UI text for language
-function updateUIForLanguage(language) {
+  });
+  
+  // Function to update UI text for language
+  function updateUIForLanguage(language) {
     appTitleElement.textContent = translations[language].appTitle;
     getWeatherButton.textContent = translations[language].getWeatherBtn;
     darkModeButton.textContent = translations[language].darkModeBtn;
     forecastHeader.textContent = translations[language].forecastHeader;
-}
-
-// Event listener for the "Get Weather" button
-getWeatherButton.addEventListener('click', () => {
-    getWeather();
-})
-
-// Event listener for "Enter" key press in the city input field
-cityInputElement.addEventListener('keydown', function(event) {
+  }
+  
+  // Event listener for the "Get Weather" button
+  getWeatherButton.addEventListener('click', getWeather);
+  
+  // Event listener for "Enter" key press in the city input field
+  cityInputElement.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault();  // Prevent form submission if it's in a form
-        getWeather();  // Trigger the weather search when Enter is pressed
+      event.preventDefault(); // Prevent form submission if it's in a form
+      getWeather(); // Trigger the weather search when Enter is pressed
     }
-});
+  });
