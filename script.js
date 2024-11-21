@@ -494,14 +494,20 @@ function changeBackground(weatherCondition) {
   function displayCurrentWeather(data, language) {
     const weatherDescription = translateCondition(data.weather[0].description, language);
   
+    // Get the current time in the city's timezone
+  const timezoneOffset = data.timezone;
+  const localTime = new Date(new Date().getTime() + timezoneOffset * 1000);
+  const timeString = localTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
     // Display current weather with temperature first
     currentWeatherDiv.innerHTML = `
-      <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
-      <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p> <!-- Display Temperature first -->
-      <p>${weatherDescription}</p> <!-- Display weather condition after Temperature -->
-      <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
-      <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
-    `;
+    <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
+    <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p> <!-- Display Temperature first -->
+    <p>${weatherDescription}</p> <!-- Display weather condition after Temperature -->
+    <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
+    <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
+    <p>Current Time: ${timeString}</p>
+  `;
   
     // Change background for the current weather
     changeBackground(weatherDescription);
