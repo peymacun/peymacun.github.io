@@ -306,28 +306,26 @@ function translateCondition(condition, language) {
 }
 
 function changeBackground(weatherCondition) {
-  // Remove all previous background classes
-  document.body.className = document.body.className.replace(/\b(clear-sky|few-clouds|scattered-clouds|broken-clouds|rainy|shower-rain|snowy|thunderstorm|mist)\b/g, '');
+  // Remove all previous background styles
+  document.body.style.backgroundColor = '';
 
-  // Apply the background based on the translated condition
+  // Apply the background color based on the translated condition
   if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
-      document.body.classList.add('clear-sky');
+      document.body.style.backgroundColor = '#87CEFA'; // Light Sky Blue for Clear Sky
   } else if (weatherCondition === 'few clouds') {
-      document.body.classList.add('few-clouds');
+      document.body.style.backgroundColor = '#B0C4DE'; // Light Steel Blue for Few Clouds
   } else if (weatherCondition === 'scattered clouds') {
-      document.body.classList.add('scattered-clouds');
-  } else if (weatherCondition === 'broken clouds') {
-      document.body.classList.add('broken-clouds');
+      document.body.style.backgroundColor = '#B0E0E6'; // Powder Blue for Scattered Clouds
   } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
-      document.body.classList.add('rainy');
+      document.body.style.backgroundColor = '#708090'; // Slate Gray for Rain
   } else if (weatherCondition === 'snow') {
-      document.body.classList.add('snowy');
+      document.body.style.backgroundColor = '#F0F8FF'; // Alice Blue for Snow
   } else if (weatherCondition === 'thunderstorm') {
-      document.body.classList.add('thunderstorm');
+      document.body.style.backgroundColor = '#2F4F4F'; // Dark Slate Gray for Thunderstorm
   } else if (weatherCondition === 'mist') {
-      document.body.classList.add('mist');
+      document.body.style.backgroundColor = '#D3D3D3'; // Light Gray for Mist
   } else {
-      document.body.classList.add('clear-sky'); // Fallback
+      document.body.style.backgroundColor = '#87CEFA'; // Fallback to Light Sky Blue
   }
 }
 
