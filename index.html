@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Only Weather</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <!-- Language Toggle on the top-left -->
         <div id="language-toggle">
-            <select id="language">
+            <select id="language" class="form-control mb-3 w-25">
                 <option value="en">English</option>
                 <option value="es">Español</option>
                 <option value="fr">Français</option>
@@ -29,21 +29,18 @@
             </select>
         </div>
 
-        <h1 id="app-title">Only Weather</h1>
+        <h1 id="app-title" class="text-center mb-4">Only Weather</h1>
         
         <!-- Weather Inputs -->
         <div>
-            <input type="text" id="city-input" placeholder="Enter your city" />
-            <button onclick="getWeather()" id="get-weather-btn">Get Weather</button>
-            <button onclick="toggleDarkMode()" id="dark-mode-btn">Dark Mode</button>
-        </div>
-        
-        <div id="current-weather"></div>
+            <input type="text" id="city-input" class="form-control mb-3" placeholder="Enter your city" />
+            <button onclick="getWeather()" id="get-weather-btn" class="btn btn-primary mb-3">Get Weather</button>       
+        <div id="current-weather" class="mt-4"></div>
 
         <!-- Forecast Header -->
-        <div id="forecast-header">5-Day Forecast</div>
+        <div id="forecast-header" class="mt-5 font-weight-bold">5-Day Forecast</div>
         
-        <div id="forecast"></div>
+        <div id="forecast" class="d-flex flex-wrap mt-3"></div>
     </div>
 
     <script src="script.js"></script>

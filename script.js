@@ -1,301 +1,180 @@
-const apiKey = 'cd9dead0b1483495170ad3b6b635ae20';
+const apiKey = 'a6f0e4fa885688122840afeb797ec88d';
 const currentWeatherDiv = document.getElementById('current-weather');
 const forecastDiv = document.getElementById('forecast');
 const cityInputElement = document.getElementById('city-input');
 const languageSelectElement = document.getElementById('language');
 const appTitleElement = document.getElementById('app-title');
 const getWeatherButton = document.getElementById('get-weather-btn');
-const darkModeButton = document.getElementById('dark-mode-btn');
 const forecastHeader = document.getElementById('forecast-header');
 
 const translations = {
-    "en": {
-        "appTitle": "Only Weather",
-        "getWeatherBtn": "Get Weather",
-        "darkModeBtn": "Dark Mode",
-        "currentWeatherTitle": "Current Weather in",
-        "forecastHeader": "5-Day Forecast",
-        "temperatureLabel": "Temperature",
-        "humidityLabel": "Humidity",
-        "windSpeedLabel": "Wind Speed",
-        "clearSky": "Clear Sky",
-        "fewClouds": "Few Clouds",
-        "scatteredClouds": "Scattered Clouds",
-        "brokenClouds": "Broken Clouds",
-        "showerRain": "Shower Rain",
-        "rain": "Rain",
-        "thunderstorm": "Thunderstorm",
-        "snow": "Snow",
-        "mist": "Mist"
-    },
-    "ru": {
-        "appTitle": "Только Погода",
-        "getWeatherBtn": "Получить Погоду",
-        "darkModeBtn": "Тёмный Режим",
-        "currentWeatherTitle": "Текущая Погода в",
-        "forecastHeader": "Прогноз на 5 дней",
-        "temperatureLabel": "Температура",
-        "humidityLabel": "Влажность",
-        "windSpeedLabel": "Скорость Ветра",
-        "clearSky": "Ясное Небо",
-        "fewClouds": "Немного Облаков",
-        "scatteredClouds": "Рассеянные Облака",
-        "brokenClouds": "Разорванные Облака",
-        "showerRain": "Дождь",
-        "rain": "Дождь",
-        "thunderstorm": "Гроза",
-        "snow": "Снег",
-        "mist": "Туман"
-    },
-    "es": {
-        "appTitle": "Solo Clima",
-        "getWeatherBtn": "Obtener Clima",
-        "darkModeBtn": "Modo Oscuro",
-        "currentWeatherTitle": "Clima Actual en",
-        "forecastHeader": "Pronóstico 5 Días",
-        "temperatureLabel": "Temperatura",
-        "humidityLabel": "Humedad",
-        "windSpeedLabel": "Velocidad del Viento",
-        "clearSky": "Cielo Claro",
-        "fewClouds": "Pocas Nubes",
-        "scatteredClouds": "Nubes Dispersas",
-        "brokenClouds": "Nubes Rotas",
-        "showerRain": "Lluvias",
-        "rain": "Lluvia",
-        "thunderstorm": "Tormenta Eléctrica",
-        "snow": "Nieve",
-        "mist": "Niebla"
-    },
-    "fr": {
-        "appTitle": "Météo Seulement",
-        "getWeatherBtn": "Obtenir Météo",
-        "darkModeBtn": "Mode Sombre",
-        "currentWeatherTitle": "Météo Actuelle à",
-        "forecastHeader": "Prévisions sur 5 Jours",
-        "temperatureLabel": "Température",
-        "humidityLabel": "Humidité",
-        "windSpeedLabel": "Vitesse du Vent",
-        "clearSky": "Ciel Clair",
-        "fewClouds": "Quelques Nuages",
-        "scatteredClouds": "Nuages Épars",
-        "brokenClouds": "Nuages Brisés",
-        "showerRain": "Pluie Légère",
-        "rain": "Pluie",
-        "thunderstorm": "Orage",
-        "snow": "Neige",
-        "mist": "Brouillard"
-    },
-    "de": {
-        "appTitle": "Nur Wetter",
-        "getWeatherBtn": "Wetter Abrufen",
-        "darkModeBtn": "Dunkler Modus",
-        "currentWeatherTitle": "Aktuelles Wetter in",
-        "forecastHeader": "5-Tage Vorhersage",
-        "temperatureLabel": "Temperatur",
-        "humidityLabel": "Luftfeuchtigkeit",
-        "windSpeedLabel": "Windgeschwindigkeit",
-        "clearSky": "Klarer Himmel",
-        "fewClouds": "Wenige Wolken",
-        "scatteredClouds": "Verstreute Wolken",
-        "brokenClouds": "Zerrissene Wolken",
-        "showerRain": "Schauer",
-        "rain": "Regen",
-        "thunderstorm": "Gewitter",
-        "snow": "Schnee",
-        "mist": "Nebel"
-    },
-    "it": {
-        "appTitle": "Solo Meteo",
-        "getWeatherBtn": "Ottieni Meteo",
-        "darkModeBtn": "Modalità Scura",
-        "currentWeatherTitle": "Meteo Attuale a",
-        "forecastHeader": "Previsioni 5 Giorni",
-        "temperatureLabel": "Temperatura",
-        "humidityLabel": "Umidità",
-        "windSpeedLabel": "Velocità del Vento",
-        "clearSky": "Cielo Serene",
-        "fewClouds": "Poche Nuvole",
-        "scatteredClouds": "Nuvole Sparse",
-        "brokenClouds": "Nuvole Spezzate",
-        "showerRain": "Pioggia Leggera",
-        "rain": "Pioggia",
-        "thunderstorm": "Temporale",
-        "snow": "Neve",
-        "mist": "Nebbia"
-    },
-    "pt": {
-        "appTitle": "Somente Tempo",
-        "getWeatherBtn": "Obter Tempo",
-        "darkModeBtn": "Modo Escuro",
-        "currentWeatherTitle": "Clima Atual em",
-        "forecastHeader": "Previsão 5 Dias",
-        "temperatureLabel": "Temperatura",
-        "humidityLabel": "Umidade",
-        "windSpeedLabel": "Velocidade do Vento",
-        "clearSky": "Céu Claro",
-        "fewClouds": "Poucas Nuvens",
-        "scatteredClouds": "Nuvens Dispersas",
-        "brokenClouds": "Nuvens Quebradas",
-        "showerRain": "Chuva",
-        "rain": "Chuva",
-        "thunderstorm": "Trovoada",
-        "snow": "Neve",
-        "mist": "Névoa"
-    },
-    "pl": {
-        "appTitle": "Tylko Pogoda",
-        "getWeatherBtn": "Pobierz Pogodę",
-        "darkModeBtn": "Tryb Ciemny",
-        "currentWeatherTitle": "Aktualna Pogoda w",
-        "forecastHeader": "Prognoza na 5 Dni",
-        "temperatureLabel": "Temperatura",
-        "humidityLabel": "Wilgotność",
-        "windSpeedLabel": "Prędkość Wiatru",
-        "clearSky": "Czyste Niebo",
-        "fewClouds": "Kilka Chmur",
-        "scatteredClouds": "Rozproszone Chmury",
-        "brokenClouds": "Pęknięte Chmury",
-        "showerRain": "Przelotne Deszcze",
-        "rain": "Deszcz",
-        "thunderstorm": "Burza",
-        "snow": "Śnieg",
-        "mist": "Mgła"
-    },
-    "nl": {
-        "appTitle": "Helder Lucht",
-        "getWeatherBtn": "Krijg Weer",
-        "darkModeBtn": "Donkere Modus",
-        "currentWeatherTitle": "Huidig Weer in",
-        "forecastHeader": "5-Daagse Voorspelling",
-        "temperatureLabel": "Temperatuur",
-        "humidityLabel": "Vochtigheid",
-        "windSpeedLabel": "Windsnelheid",
-        "clearSky": "Helder Lucht",
-        "fewClouds": "Weinig Wolken",
-        "scatteredClouds": "Verspreide Wolken",
-        "brokenClouds": "Gebroken Wolken",
-        "showerRain": "Bui Regen",
-        "rain": "Regen",
-        "thunderstorm": "Onweer",
-        "snow": "Sneeuw",
-        "mist": "Mist"
-    },
-    "zh": {
-        "appTitle": "只有天气",
-        "getWeatherBtn": "获取天气",
-        "darkModeBtn": "暗模式",
-        "currentWeatherTitle": "当前天气在",
-        "forecastHeader": "五天预报",
-        "temperatureLabel": "温度",
-        "humidityLabel": "湿度",
-        "windSpeedLabel": "风速",
-        "clearSky": "晴天",
-        "fewClouds": "少量云",
-        "scatteredClouds": "散云",
-        "brokenClouds": "破云",
-        "showerRain": "阵雨",
-        "rain": "雨",
-        "thunderstorm": "雷暴",
-        "snow": "雪",
-        "mist": "雾"
-    },
-    "ja": {
-        "appTitle": "天気だけ",
-        "getWeatherBtn": "天気を取得",
-        "darkModeBtn": "ダークモード",
-        "currentWeatherTitle": "現在の天気",
-        "forecastHeader": "5日間の予報",
-        "temperatureLabel": "温度",
-        "humidityLabel": "湿度",
-        "windSpeedLabel": "風速",
-        "clearSky": "快晴",
-        "fewClouds": "少し雲",
-        "scatteredClouds": "散発的な雲",
-        "brokenClouds": "壊れた雲",
-        "showerRain": "シャワー雨",
-        "rain": "雨",
-        "thunderstorm": "雷雨",
-        "snow": "雪",
-        "mist": "霧"
-    },
-    "ko": {
-        "appTitle": "날씨만",
-        "getWeatherBtn": "날씨 가져오기",
-        "darkModeBtn": "어두운 모드",
-        "currentWeatherTitle": "현재 날씨",
-        "forecastHeader": "5일 예보",
-        "temperatureLabel": "온도",
-        "humidityLabel": "습도",
-        "windSpeedLabel": "풍속",
-        "clearSky": "맑은 하늘",
-        "fewClouds": "약간의 구름",
-        "scatteredClouds": "흩어진 구름",
-        "brokenClouds": "부서진 구름",
-        "showerRain": "소나기",
-        "rain": "비",
-        "thunderstorm": "천둥번개",
-        "snow": "눈",
-        "mist": "안개"
-    },
-    "ar": {
-        "appTitle": "فقط الطقس",
-        "getWeatherBtn": "الحصول على الطقس",
-        "darkModeBtn": "الوضع المظلم",
-        "currentWeatherTitle": "الطقس الحالي في",
-        "forecastHeader": "توقعات 5 أيام",
-        "temperatureLabel": "درجة الحرارة",
-        "humidityLabel": "الرطوبة",
-        "windSpeedLabel": "سرعة الرياح",
-        "clearSky": "سماء صافية",
-        "fewClouds": "قليل من السحب",
-        "scatteredClouds": "سحب متفرقة",
-        "brokenClouds": "سحب مكسورة",
-        "showerRain": "زخات مطر",
-        "rain": "مطر",
-        "thunderstorm": "عاصفة رعدية",
-        "snow": "ثلج",
-        "mist": "ضباب"
-    },
-    "tr": {
-        "appTitle": "Sadece Hava Durumu",
-        "getWeatherBtn": "Hava Durumunu Al",
-        "darkModeBtn": "Karanlık Mod",
-        "currentWeatherTitle": "Şu Anki Hava Durumu",
-        "forecastHeader": "5 Günlük Tahmin",
-        "temperatureLabel": "Sıcaklık",
-        "humidityLabel": "Nem",
-        "windSpeedLabel": "Rüzgar Hızı",
-        "clearSky": "Açık Gökyüzü",
-        "fewClouds": "Az Bulutlu",
-        "scatteredClouds": "Dağınık Bulutlar",
-        "brokenClouds": "Parçalanmış Bulutlar",
-        "showerRain": "Yağmur",
-        "rain": "Yağmur",
-        "thunderstorm": "Fırtına",
-        "snow": "Kar",
-        "mist": "Sis"
-    },
-    "hi": {
-        "appTitle": "सिर्फ मौसम",
-        "getWeatherBtn": "मौसम प्राप्त करें",
-        "darkModeBtn": "अंधेरे मोड",
-        "currentWeatherTitle": "वर्तमान मौसम",
-        "forecastHeader": "5 दिन की भविष्यवाणी",
-        "temperatureLabel": "तापमान",
-        "humidityLabel": "आर्द्रता",
-        "windSpeedLabel": "हवा की गति",
-        "clearSky": "स्वच्छ आकाश",
-        "fewClouds": "कुछ बादल",
-        "scatteredClouds": "विखरे हुए बादल",
-        "brokenClouds": "टूटे हुए बादल",
-        "showerRain": "बूंदा बांदी",
-        "rain": "बारिश",
-        "thunderstorm": "आंधी-तूफान",
-        "snow": "बर्फ",
-        "mist": "कोहरा"
-    }
-
+  "en": {
+      "appTitle": "Only Weather",
+      "getWeatherBtn": "Get Weather",
+      "darkModeBtn": "Dark Mode",
+      "currentWeatherTitle": "Current Weather in",
+      "forecastHeader": "5-Day Forecast",
+      "temperatureLabel": "Temperature",
+      "humidityLabel": "Humidity",
+      "windSpeedLabel": "Wind Speed",
+      "placeholder": "Enter your city" // English placeholder
+  },
+  "ru": {
+      "appTitle": "Только Погода",
+      "getWeatherBtn": "Получить Погоду",
+      "darkModeBtn": "Тёмный Режим",
+      "currentWeatherTitle": "Текущая Погода в",
+      "forecastHeader": "Прогноз на 5 дней",
+      "temperatureLabel": "Температура",
+      "humidityLabel": "Влажность",
+      "windSpeedLabel": "Скорость Ветра",
+      "placeholder": "Введите ваш город" // Russian placeholder
+  },
+  "es": {
+      "appTitle": "Solo Clima",
+      "getWeatherBtn": "Obtener Clima",
+      "darkModeBtn": "Modo Oscuro",
+      "currentWeatherTitle": "Clima Actual en",
+      "forecastHeader": "Pronóstico 5 Días",
+      "temperatureLabel": "Temperatura",
+      "humidityLabel": "Humedad",
+      "windSpeedLabel": "Velocidad del Viento",
+      "placeholder": "Introduce tu ciudad" // Spanish placeholder
+  },
+  "fr": {
+      "appTitle": "Météo Seulement",
+      "getWeatherBtn": "Obtenir Météo",
+      "darkModeBtn": "Mode Sombre",
+      "currentWeatherTitle": "Météo Actuelle à",
+      "forecastHeader": "Prévisions sur 5 Jours",
+      "temperatureLabel": "Température",
+      "humidityLabel": "Humidité",
+      "windSpeedLabel": "Vitesse du Vent",
+      "placeholder": "Entrez votre ville" // French placeholder
+  },
+  "de": {
+      "appTitle": "Nur Wetter",
+      "getWeatherBtn": "Wetter Abrufen",
+      "darkModeBtn": "Dunkler Modus",
+      "currentWeatherTitle": "Aktuelles Wetter in",
+      "forecastHeader": "5-Tage Vorhersage",
+      "temperatureLabel": "Temperatur",
+      "humidityLabel": "Luftfeuchtigkeit",
+      "windSpeedLabel": "Windgeschwindigkeit",
+      "placeholder": "Geben Sie Ihre Stadt ein" // German placeholder
+  },
+  "it": {
+      "appTitle": "Solo Meteo",
+      "getWeatherBtn": "Ottieni Meteo",
+      "darkModeBtn": "Modalità Scura",
+      "currentWeatherTitle": "Meteo Attuale a",
+      "forecastHeader": "Previsioni 5 Giorni",
+      "temperatureLabel": "Temperatura",
+      "humidityLabel": "Umidità",
+      "windSpeedLabel": "Velocità del Vento",
+      "placeholder": "Inserisci la tua città" // Italian placeholder
+  },
+  "pt": {
+      "appTitle": "Somente Tempo",
+      "getWeatherBtn": "Obter Tempo",
+      "darkModeBtn": "Modo Escuro",
+      "currentWeatherTitle": "Clima Atual em",
+      "forecastHeader": "Previsão 5 Dias",
+      "temperatureLabel": "Temperatura",
+      "humidityLabel": "Umidade",
+      "windSpeedLabel": "Velocidade do Vento",
+      "placeholder": "Insira sua cidade" // Portuguese placeholder
+  },
+  "pl": {
+      "appTitle": "Tylko Pogoda",
+      "getWeatherBtn": "Pobierz Pogodę",
+      "darkModeBtn": "Tryb Ciemny",
+      "currentWeatherTitle": "Aktualna Pogoda w",
+      "forecastHeader": "Prognoza na 5 Dni",
+      "temperatureLabel": "Temperatura",
+      "humidityLabel": "Wilgotność",
+      "windSpeedLabel": "Prędkość Wiatru",
+      "placeholder": "Wpisz swoje miasto" // Polish placeholder
+  },
+  "nl": {
+      "appTitle": "Helder Lucht",
+      "getWeatherBtn": "Krijg Weer",
+      "darkModeBtn": "Donkere Modus",
+      "currentWeatherTitle": "Huidig Weer in",
+      "forecastHeader": "5-Daagse Voorspelling",
+      "temperatureLabel": "Temperatuur",
+      "humidityLabel": "Vochtigheid",
+      "windSpeedLabel": "Windsnelheid",
+      "placeholder": "Voer uw stad in" // Dutch placeholder
+  },
+  "zh": {
+      "appTitle": "只有天气",
+      "getWeatherBtn": "获取天气",
+      "darkModeBtn": "暗模式",
+      "currentWeatherTitle": "当前天气在",
+      "forecastHeader": "五天预报",
+      "temperatureLabel": "温度",
+      "humidityLabel": "湿度",
+      "windSpeedLabel": "风速",
+      "placeholder": "输入您的城市" // Chinese placeholder
+  },
+  "ja": {
+      "appTitle": "天気だけ",
+      "getWeatherBtn": "天気を取得",
+      "darkModeBtn": "ダークモード",
+      "currentWeatherTitle": "現在の天気",
+      "forecastHeader": "5日間の予報",
+      "temperatureLabel": "温度",
+      "humidityLabel": "湿度",
+      "windSpeedLabel": "風速",
+      "placeholder": "あなたの都市を入力してください" // Japanese placeholder
+  },
+  "ko": {
+      "appTitle": "날씨만",
+      "getWeatherBtn": "날씨 가져오기",
+      "darkModeBtn": "어두운 모드",
+      "currentWeatherTitle": "현재 날씨",
+      "forecastHeader": "5일 예보",
+      "temperatureLabel": "온도",
+      "humidityLabel": "습도",
+      "windSpeedLabel": "풍속",
+      "placeholder": "도시를 입력하세요" // Korean placeholder
+  },
+  "ar": {
+      "appTitle": "فقط الطقس",
+      "getWeatherBtn": "الحصول على الطقس",
+      "darkModeBtn": "الوضع المظلم",
+      "currentWeatherTitle": "الطقس الحالي في",
+      "forecastHeader": "توقعات 5 أيام",
+      "temperatureLabel": "درجة الحرارة",
+      "humidityLabel": "الرطوبة",
+      "windSpeedLabel": "سرعة الرياح",
+      "placeholder": "أدخل مدينتك" // Arabic placeholder
+  },
+  "tr": {
+      "appTitle": "Sadece Hava Durumu",
+      "getWeatherBtn": "Hava Durumunu Al",
+      "darkModeBtn": "Karanlık Mod",
+      "currentWeatherTitle": "Şu Anki Hava Durumu",
+      "forecastHeader": "5 Günlük Tahmin",
+      "temperatureLabel": "Sıcaklık",
+      "humidityLabel": "Nem",
+      "windSpeedLabel": "Rüzgar Hızı",
+      "placeholder": "Şehrinizi girin" // Turkish placeholder
+  },
+  "hi": {
+      "appTitle": "सिर्फ मौसम",
+      "getWeatherBtn": "मौसम प्राप्त करें",
+      "darkModeBtn": "अंधेरे मोड",
+      "currentWeatherTitle": "वर्तमान मौसम",
+      "forecastHeader": "5 दिन की भविष्यवाणी",
+      "temperatureLabel": "तापमान",
+      "humidityLabel": "आर्द्रता",
+      "windSpeedLabel": "हवा की गति",
+      "placeholder": "अपना शहर दर्ज करें" // Hindi placeholder
+  }
 };
+
 const conditionTranslations = {
     "clear sky": {
         "en": "clear sky",
@@ -419,147 +298,144 @@ const conditionTranslations = {
 };
 
 function translateCondition(condition, language) {
-    for (let conditionKey in conditionTranslations) {
-        if (conditionTranslations[conditionKey][language] === condition) {
-            return conditionKey; // Return the English condition
-        }
-    }
-    return condition; // If no translation is found, return the original condition
+  return conditionTranslations[condition][language] || condition;
+}
+
+function translateCondition(condition, language) {
+  return conditionTranslations[condition][language] || condition;
 }
 
 function changeBackground(weatherCondition) {
-    // Remove all previous background classes
-    document.body.className = document.body.className.replace(/\b(clear-sky|few-clouds|scattered-clouds|broken-clouds|rainy|shower-rain|snowy|thunderstorm|mist)\b/g, '');
-  
-    // Apply the background based on the translated condition
-    if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
+  // Remove all previous background classes
+  document.body.className = document.body.className.replace(/\b(clear-sky|few-clouds|scattered-clouds|broken-clouds|rainy|shower-rain|snowy|thunderstorm|mist)\b/g, '');
+
+  // Apply the background based on the translated condition
+  if (weatherCondition === 'clear sky' || weatherCondition === 'sunny') {
       document.body.classList.add('clear-sky');
-    } else if (weatherCondition === 'few clouds') {
+  } else if (weatherCondition === 'few clouds') {
       document.body.classList.add('few-clouds');
-    } else if (weatherCondition === 'scattered clouds') {
+  } else if (weatherCondition === 'scattered clouds') {
       document.body.classList.add('scattered-clouds');
-    } else if (weatherCondition === 'broken clouds') {
+  } else if (weatherCondition === 'broken clouds') {
       document.body.classList.add('broken-clouds');
-    } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
+  } else if (weatherCondition === 'rain' || weatherCondition === 'shower rain') {
       document.body.classList.add('rainy');
-    } else if (weatherCondition === 'snow') {
+  } else if (weatherCondition === 'snow') {
       document.body.classList.add('snowy');
-    } else if (weatherCondition === 'thunderstorm') {
+  } else if (weatherCondition === 'thunderstorm') {
       document.body.classList.add('thunderstorm');
-    } else if (weatherCondition === 'mist') {
+  } else if (weatherCondition === 'mist') {
       document.body.classList.add('mist');
-    } else {
+  } else {
       document.body.classList.add('clear-sky'); // Fallback
-    }
   }
-  
-  async function getWeather() {
-    const cityInput = cityInputElement.value.trim();
-    if (!cityInput) {
+}
+
+async function getWeather() {
+  const cityInput = cityInputElement.value.trim();
+  if (!cityInput) {
       alert('Please enter a city name');
       return;
-    }
-  
-    const language = languageSelectElement.value;
-    const units = 'metric';
-  
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=${units}&lang=${language}&appid=${apiKey}`;
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&units=${units}&lang=${language}&appid=${apiKey}`;
-  
-    try {
+  }
+
+  const language = languageSelectElement.value;
+  const units = 'metric';
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=${units}&lang=${language}&appid=${apiKey}`;
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&units=${units}&lang=${language}&appid=${apiKey}`;
+
+  try {
       const [currentResponse, forecastResponse] = await Promise.all([fetch(url), fetch(forecastUrl)]);
-  
+
       if (!currentResponse.ok || !forecastResponse.ok) {
-        throw new Error('Location not found or API error');
+          throw new Error(`Error fetching data: ${currentResponse.status} ${currentResponse.statusText}`);
       }
-  
+
       const currentWeatherData = await currentResponse.json();
       const forecastData = await forecastResponse.json();
-  
+
       // Translate the weather condition to English
       const translatedCondition = translateCondition(currentWeatherData.weather[0].description, language);
-  
+
       // Update background based on the translated condition
       changeBackground(translatedCondition);
-  
+
       displayCurrentWeather(currentWeatherData, language);
       displayForecast(forecastData, language);
-    } catch (error) {
-      console.error(error);
+  } catch (error) {
+      console.error('Fetch error:', error);
       alert('Could not fetch weather data. Please try again.');
-    }
   }
-  
-  // Function to display current weather
-  function displayCurrentWeather(data, language) {
-    const weatherDescription = translateCondition(data.weather[0].description, language);
-  
-    // Get the current time in the city's timezone
+}
+
+// Function to display current weather
+function displayCurrentWeather(data, language) {
+  const weatherCondition = data.weather[0].description.toLowerCase();
+  const weatherDescription = translateCondition(weatherCondition, language);
+
+  // Get the current time in the city's timezone
   const timezoneOffset = data.timezone;
   const localTime = new Date(new Date().getTime() + timezoneOffset * 1000);
   const timeString = localTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
-    // Display current weather with temperature first
-    currentWeatherDiv.innerHTML = `
-    <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
-    <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p> <!-- Display Temperature first -->
-    <p>${weatherDescription}</p> <!-- Display weather condition after Temperature -->
-    <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
-    <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
-    <p>Current Time: ${timeString}</p>
+  // Display current weather with temperature first
+  currentWeatherDiv.innerHTML = `
+      <div class="card p-3 mb-3">
+          <h2>${translations[language].currentWeatherTitle} ${data.name}</h2>
+          <p>${translations[language].temperatureLabel}: ${data.main.temp}°</p>
+          <p>${weatherDescription}</p>
+          <p>${translations[language].humidityLabel}: ${data.main.humidity}%</p>
+          <p>${translations[language].windSpeedLabel}: ${data.wind.speed} m/s</p>
+          <p>Current Time: ${timeString}</p>
+      </div>
   `;
-  
-    // Change background for the current weather
-    changeBackground(weatherDescription);
-  }
-  
-  // Function to display the 5-day forecast
-  function displayForecast(data, language) {
-    forecastDiv.innerHTML = '';
-    const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
-    dailyData.forEach(day => {
+}
+
+// Function to display the 5-day forecast
+function displayForecast(data, language) {
+  forecastDiv.innerHTML = '';
+  const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
+  dailyData.forEach(day => {
       const weatherDescription = translateCondition(day.weather[0].description, language);
-  
+
       // Append forecast data
       forecastDiv.innerHTML += `
-        <div class="forecast-item">
-          <p>${new Date(day.dt_txt).toDateString()}</p>
-          <p>${weatherDescription}</p>
-          <p>${translations[language].temperatureLabel}: ${day.main.temp}°</p>
-        </div>
+          <div class="col-md-4 mb-3">
+              <div class="card p-3 h-100">
+                  <p><strong>${new Date(day.dt_txt).toDateString()}</strong></p>
+                  <p>${weatherDescription}</p>
+                  <p>${translations[language].temperatureLabel}: ${day.main.temp}°</p>
+              </div>
+          </div>
       `;
-    });
-  }
-  
-  // Function to toggle dark mode
-  function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-  }
-  
-  // Event listener for language change
-  languageSelectElement.addEventListener('change', function () {
-    const language = languageSelectElement.value;
-    updateUIForLanguage(language);
-    if (currentWeatherDiv.innerHTML) {
-      getWeather(); // Refresh weather data in the selected language
-    }
   });
-  
-  // Function to update UI text for language
-  function updateUIForLanguage(language) {
-    appTitleElement.textContent = translations[language].appTitle;
-    getWeatherButton.textContent = translations[language].getWeatherBtn;
-    darkModeButton.textContent = translations[language].darkModeBtn;
-    forecastHeader.textContent = translations[language].forecastHeader;
+}
+
+// Event listener for language change
+languageSelectElement.addEventListener('change', function () {
+  const language = languageSelectElement.value;
+  updateUIForLanguage(language);
+  if (currentWeatherDiv.innerHTML) {
+      getWeather(); // Refresh weather data in the selected language
   }
-  
-  // Event listener for the "Get Weather" button
-  getWeatherButton.addEventListener('click', getWeather);
-  
-  // Event listener for "Enter" key press in the city input field
-  cityInputElement.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
+});
+
+// Function to update UI text for language
+function updateUIForLanguage(language) {
+  appTitleElement.textContent = translations[language].appTitle;
+  getWeatherButton.textContent = translations[language].getWeatherBtn;
+   forecastHeader.textContent = translations[language].forecastHeader;
+  // Update placeholder text for the city input field
+  cityInputElement.placeholder = translations[language].placeholder;
+}
+
+// Event listener for the "Get Weather" button
+getWeatherButton.addEventListener('click', getWeather);
+
+// Event listener for "Enter" key press in the city input field
+cityInputElement.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
       event.preventDefault(); // Prevent form submission if it's in a form
       getWeather(); // Trigger the weather search when Enter is pressed
-    }
-  });
+  }
+});
